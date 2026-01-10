@@ -1,0 +1,108 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches:
+      - 'feature/**'
+      - 'fix/**'
+      
+  pull_request:
+    branches:
+      - main
+      - develop
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # Validate branch naming convention
+  validate-branch-name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check branch name
+        run: |
+          BRANCH_NAME="${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}"
+          echo "Branch name: $BRANCH_NAME"
+          
+          if [[ "$BRANCH_NAME" == "main" || "$BRANCH_NAME" == "develop" ]]; then
+            echo "✅ Target branch validation passed"
+            exit 0
+          fi
+          
+          if [[ ! "$BRANCH_NAME" =~ ^(feature|fix)/ ]]; then
+            echo "❌ Error: Branch name must start with 'feature/' or 'fix/'"
+            echo "Current branch: $BRANCH_NAME"
+            echo "Examples: feature/add-login, fix/header-bug"
+            exit 1
+          fi
+          
+          echo "✅ Branch name validation passed: $BRANCH_NAME"
+
+  # Run linting
+  lint:
+    runs-on: ubuntu-latest
+    needs: validate-branch-name
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6.0.2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6.1.0
+        with:
+          node-version: '24.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linter
+        run: npm run lint
+
+  # Run tests
+  test:
+    runs-on: ubuntu-latest
+    needs: validate-branch-name
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6.0.2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6.1.0
+        with:
+          node-version: '24.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm run test
+
+  # Build the application
+  build:
+    runs-on: ubuntu-latest
+    needs: validate-branch-name
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6.0.2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6.1.0
+        with:
+          node-version: '24.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v6.0.0
+        with:
+          name: build-output
+          path: dist/  # Adjust this path based on your build output directory
+          retention-days: 7
