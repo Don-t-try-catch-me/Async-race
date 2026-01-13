@@ -10,14 +10,15 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier": "prettier . --write",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test": "jest"
   },
   "lint-staged": {
     "**/*.{js,ts}": [
       "eslint --fix",
       "prettier --write"
     ],
-    "**/*.{css}": [
+    "**/*.css": [
       "prettier --write"
     ]
   },
@@ -30,6 +31,7 @@
     "eslint-config-prettier": "^10.1.8",
     "globals": "^17.0.0",
     "husky": "^9.1.7",
+    "jest": "^30.2.0",
     "lint-staged": "^16.2.7",
     "prettier": "^3.7.4",
     "typescript": "~5.9.3",
