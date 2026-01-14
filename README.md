@@ -179,7 +179,7 @@ const user: any = {};
 
 ### File Structure
 
-- **Components**: Functional components with hooks. Use PascalCase for component files
+- **Components**: Components. Use PascalCase for component files
 - **Services**: Business logic, API calls, and utilities
 - **Routes**: Route configurations and path definitions
 - **Types**: Centralized TypeScript types and interfaces
@@ -199,8 +199,7 @@ Group imports in the following order with blank lines between groups:
 
 ```typescript
 // 1. External libraries
-import React from 'react';
-import type { FC } from 'react';
+import axios from 'axios';
 
 // 2. Internal imports
 import { UserService } from '@/services/user-service';
