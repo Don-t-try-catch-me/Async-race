@@ -1,0 +1,14 @@
+@use "../constants/variables" as *;
+
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+  padding: 24px 0;
+}
+
+

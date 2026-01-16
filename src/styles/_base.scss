@@ -1,0 +1,44 @@
+@use 'constants/variables' as *;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: $color-text;
+
+  background-color: $color-background;
+  background-image:
+    radial-gradient(
+      $bg-radial-1-size circle at $bg-radial-1-x $bg-radial-1-y,
+      $bg-radial-1-color,
+      transparent $bg-radial-1-stop
+    ),
+    radial-gradient(
+      $bg-radial-2-size circle at $bg-radial-2-x $bg-radial-2-y,
+      $bg-radial-2-color,
+      transparent $bg-radial-2-stop
+    ),
+    linear-gradient(
+      $bg-linear-angle,
+      $bg-linear-start 0%,
+      $bg-linear-mid $bg-linear-mid-stop,
+      $bg-linear-end 100%
+    );
+
+  background-attachment: fixed;
+}
+
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
