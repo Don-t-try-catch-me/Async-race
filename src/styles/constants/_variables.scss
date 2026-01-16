@@ -1,0 +1,67 @@
+// Colors
+$color-white: #ffffff;
+
+$color-text: #d7dde6;
+$color-background: #141922;
+
+// Opacity scale
+$opacity-10: 0.1;
+$opacity-35: 0.35;
+$opacity-70: 0.7;
+
+// Layout
+$border-color: rgba($color-white, $opacity-10);
+$bg-color: rgba($color-background, $opacity-70);
+
+// buttons
+$nav-btn-border-color: rgba($color-white, $opacity-10);
+$nav-btn-bg-color: rgba($color-white, $opacity-10);
+
+$nav-btn-hover-border-color: rgba($color-white, $opacity-35);
+$nav-btn-hover-bg-color: rgba($color-white, $opacity-10);
+
+$nav-btn-active-border-color: rgba($color-white, $opacity-35);
+$nav-btn-active-bg-color: rgba($color-white, $opacity-10);
+
+// Background gradient
+$bg-radial-1-size: 850px;
+$bg-radial-1-x: 18%;
+$bg-radial-1-y: 12%;
+$bg-radial-1-color: rgba($color-white, $opacity-10);
+$bg-radial-1-stop: 55%;
+
+$bg-radial-2-size: 650px;
+$bg-radial-2-x: 85%;
+$bg-radial-2-y: 25%;
+$bg-radial-2-color: rgba($color-white, $opacity-10);
+$bg-radial-2-stop: 60%;
+
+$bg-linear-angle: 120deg;
+$bg-linear-start: #141922;
+$bg-linear-mid: #2a3444;
+$bg-linear-mid-stop: 52%;
+$bg-linear-end: #141922;
+
+// Text (on dark background) 
+$color-text-70: rgba(215, 221, 230, 0.7);
+$color-text-35: rgba(215, 221, 230, $opacity-35);
+$color-text-100: rgba(215, 221, 230, 1);
+
+// Typography
+$font-size-base: 1rem;
+$font-size-h1: 1.75rem; 
+$font-size-header-title: 1.25rem; 
+
+// Font weights
+$font-weight-regular: 400;
+$font-weight-bold: 700;
+
+// Letter spacing (rem)
+$letter-spacing-tight: 0.01rem; 
+$letter-spacing-header-title: 0.02rem; 
+
+// Font families
+$font-family-base: 'Roboto', sans-serif;
+
+// Line heights
+$line-height-base: 1.5;

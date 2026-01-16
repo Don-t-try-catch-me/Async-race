@@ -1,13 +1,17 @@
-import './style.css';
+import './styles/index.scss';
 
-export const root =
-  document.querySelector('#root') ?? document.createElement('main');
-root.id = 'root';
+import { createLayoutController } from '@/components/layout/layout-controller';
 
-if (!document.querySelector('#root')) {
-  document.body.append(root);
+function ensureRoot(): HTMLElement {
+  const existing = document.querySelector<HTMLElement>('#root');
+  if (existing) return existing;
+
+  const created = document.createElement('div');
+  created.id = 'root';
+  document.body.append(created);
+  return created;
 }
 
-const h1 = document.createElement('h1')
-h1.textContent = 'Async race'
-root.append(h1)
+const root = ensureRoot();
+
+root.replaceChildren(createLayoutController());

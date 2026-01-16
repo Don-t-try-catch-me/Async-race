@@ -1,0 +1,33 @@
+@use "../constants/variables" as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  border-bottom: 1px solid $border-color;
+  background: $bg-color;
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 14px;
+}
+
+.header__title {
+  margin: 0;
+  font-size: $font-size-header-title;
+  font-weight: $font-weight-bold;
+  letter-spacing: $letter-spacing-header-title;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+

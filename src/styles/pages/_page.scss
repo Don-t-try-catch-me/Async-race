@@ -1,0 +1,20 @@
+@use "../constants/variables" as *;
+
+.page {
+  padding: 0;  
+}
+
+.page__title {
+  margin: 0 0 12px;
+  font-size: $font-size-h1;
+  font-weight: $font-weight-bold;
+  letter-spacing: $letter-spacing-tight;
+}
+
+.page__hint {
+  margin: 0;
+  color: rgba(215, 221, 230, 0.75); 
+  font-size: 16px;
+  line-height: 1.6;
+}
+
