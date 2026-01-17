@@ -21,4 +21,5 @@ export const winnersMock: WinnerDto[] = [
   { id: 18, wins: 5, time: 2.73 },
   { id: 19, wins: 3, time: 3.18 },
   { id: 20, wins: 2, time: 3.47 },
+  { id: 21, wins: 2, time: 7.47 },
 ];

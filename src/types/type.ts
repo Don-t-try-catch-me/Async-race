@@ -37,8 +37,13 @@ export type GarageView = {
 export type WinnersView = {
   root: HTMLElement;
   tableBody: HTMLTableSectionElement;
+
   sortWinsBtn: HTMLButtonElement;
   sortTimeBtn: HTMLButtonElement;
+
+  prevBtn: HTMLButtonElement;
+  nextBtn: HTMLButtonElement;
+  pageLabel: HTMLElement;
 };
 
 export type WinnersViewProperties = {
@@ -87,3 +92,15 @@ export type SortState =
       order: SortOrder;
     }
   | undefined;
+
+export type PaginationView = {
+  root: HTMLElement;
+  prevBtn: HTMLButtonElement;
+  nextBtn: HTMLButtonElement;
+  label: HTMLElement;
+};
+
+export type PaginationProperties = {
+  page: number;
+  totalPages: number;
+};

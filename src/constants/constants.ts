@@ -11,3 +11,5 @@ export const FOOTER_CONFIG = {
   ],
   year: '@ 2025',
 } as const;
+
+export const WINNER_TABLE_ROWS_PER_PAGE = 10;

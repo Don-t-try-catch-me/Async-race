@@ -21,4 +21,5 @@ export const carsMock: CarDto[] = [
   { id: 18, name: 'Falcon', color: '#fee440' },
   { id: 19, name: 'Cobra', color: '#fb5607' },
   { id: 20, name: 'Aurora', color: '#3a86ff' },
+  { id: 21, name: 'Aurora2', color: '#3a86ff' },
 ];

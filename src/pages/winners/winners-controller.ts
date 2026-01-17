@@ -3,6 +3,7 @@ import type { SortKey, SortState, WinnersTableRow } from '@/types/type';
 import { getCarByIdMock } from './mocks-api';
 import { winnersMock } from './mocks-winners';
 import { createWinnersView } from './winners-view';
+import { WINNER_TABLE_ROWS_PER_PAGE } from '@/constants/constants';
 
 function nextSortState(current: SortState, key: SortKey): SortState {
   if (!current || current.key !== key) return { key, order: 'asc' };
@@ -29,31 +30,67 @@ function sortRows(
   return sorted;
 }
 
+function getTotalPages(totalItems: number): number {
+  const pages = Math.ceil(totalItems / WINNER_TABLE_ROWS_PER_PAGE);
+  return pages > 0 ? pages : 1;
+}
+
+function clampPage(page: number, totalPages: number): number {
+  if (page < 1) return 1;
+  if (page > totalPages) return totalPages;
+  return page;
+}
+
 export function createWinnersController(): HTMLElement {
   const view = createWinnersView({ totalWinners: winnersMock.length });
 
   let rows: WinnersTableRow[] = [];
   let sortState: SortState = undefined;
+  let page = 1;
 
-  const applySortAndRender = (): void => {
+  const apply = (): void => {
     const sorted = sortRows(rows, sortState);
 
-    const viewRows: WinnersTableRow[] = sorted.map((row, index) => ({
-      ...row,
-      index: index + 1,
-    }));
+    const totalPages = getTotalPages(sorted.length);
+    page = clampPage(page, totalPages);
 
-    renderWinnersRows(view.tableBody, viewRows);
+    const start = (page - 1) * WINNER_TABLE_ROWS_PER_PAGE;
+    const end = start + WINNER_TABLE_ROWS_PER_PAGE;
+
+    const pageRows: WinnersTableRow[] = sorted
+      .slice(start, end)
+      .map((row, index) => ({
+        ...row,
+        index: start + index + 1,
+      }));
+
+    renderWinnersRows(view.tableBody, pageRows);
+
+    view.pageLabel.textContent = `Page ${page} / ${totalPages}`;
+    view.prevBtn.disabled = page <= 1;
+    view.nextBtn.disabled = page >= totalPages;
   };
 
   view.sortWinsBtn.addEventListener('click', () => {
     sortState = nextSortState(sortState, 'wins');
-    applySortAndRender();
+    page = 1;
+    apply();
   });
 
   view.sortTimeBtn.addEventListener('click', () => {
     sortState = nextSortState(sortState, 'time');
-    applySortAndRender();
+    page = 1;
+    apply();
+  });
+
+  view.prevBtn.addEventListener('click', () => {
+    page -= 1;
+    apply();
+  });
+
+  view.nextBtn.addEventListener('click', () => {
+    page += 1;
+    apply();
   });
 
   void (async () => {
@@ -72,7 +109,7 @@ export function createWinnersController(): HTMLElement {
       })
     );
 
-    applySortAndRender();
+    apply();
   })();
 
   return view.root;
