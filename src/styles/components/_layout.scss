@@ -1,4 +1,4 @@
-@use "../constants/variables" as *;
+@use '../constants/variables' as *;
 
 .layout {
   min-height: 100vh;
@@ -10,5 +10,3 @@
   flex: 1;
   padding: 24px 0;
 }
-
-

@@ -36,6 +36,13 @@ export type GarageView = {
 
 export type WinnersView = {
   root: HTMLElement;
+  tableBody: HTMLTableSectionElement;
+  sortWinsBtn: HTMLButtonElement;
+  sortTimeBtn: HTMLButtonElement;
+};
+
+export type WinnersViewProperties = {
+  totalWinners: number;
 };
 
 export type CarDto = {
@@ -49,3 +56,34 @@ export type WinnerDto = {
   wins: number;
   time: number;
 };
+
+export type WinnersTableView = {
+  root: HTMLElement;
+  tbody: HTMLTableSectionElement;
+  sortWinsBtn: HTMLButtonElement;
+  sortTimeBtn: HTMLButtonElement;
+};
+
+export type WinnersTableRow = {
+  index: number;
+  carId: number;
+  name: string;
+  color: string;
+  wins: number;
+  time: number;
+};
+
+export type TotalCounterProperties = {
+  label: string;
+  count: number;
+};
+
+export type SortKey = 'wins' | 'time';
+export type SortOrder = 'asc' | 'desc';
+
+export type SortState =
+  | {
+      key: SortKey;
+      order: SortOrder;
+    }
+  | undefined;
