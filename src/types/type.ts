@@ -37,3 +37,15 @@ export type GarageView = {
 export type WinnersView = {
   root: HTMLElement;
 };
+
+export type CarDto = {
+  id: number;
+  name: string;
+  color: string;
+};
+
+export type WinnerDto = {
+  id: number;
+  wins: number;
+  time: number;
+};
