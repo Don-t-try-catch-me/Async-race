@@ -1,0 +1,51 @@
+@use '../constants/variables' as *;
+
+.color-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  &__label {
+    color: $color-text-70;
+    font-size: $font-size-s;
+  }
+
+  &__control {
+    display: flex;
+    align-items: center;
+
+    padding: 5px 6px;
+    border-radius: 12px;
+
+    border: 1px solid $nav-btn-border-color;
+    background: $nav-btn-bg-color;
+  }
+
+  &__input {
+    width: 40px;
+    height: 34px;
+
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  &__input::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+  &__input::-webkit-color-swatch {
+    border: none;
+    border-radius: 8px;
+  }
+  &__input::-moz-color-swatch {
+    border: none;
+    border-radius: 8px;
+  }
+
+  &__input:focus-visible {
+    outline: $focus-outline-width solid $focus-outline-color;
+    outline-offset: $focus-outline-offset;
+    border-radius: 10px;
+  }
+}

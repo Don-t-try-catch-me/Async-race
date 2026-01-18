@@ -104,3 +104,32 @@ export type PaginationProperties = {
   page: number;
   totalPages: number;
 };
+
+export type GarageViewProperties = {
+  totalCars: number;
+};
+
+export type TextInputProperties = {
+  id: string;
+  name: string;
+  label: string;
+  placeholder?: string;
+  value?: string;
+};
+
+export type TextInputView = {
+  root: HTMLElement;
+  input: HTMLInputElement;
+};
+
+export type ColorPickerProperties = {
+  id: string;
+  name: string;
+  label: string;
+  value?: string;
+};
+
+export type ColorPickerView = {
+  root: HTMLElement;
+  input: HTMLInputElement;
+};
