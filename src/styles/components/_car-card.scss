@@ -1,0 +1,118 @@
+@use '../constants/variables' as *;
+
+.car-card {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 20px;
+
+  border: 1px solid $border-color;
+  border-radius: 1rem;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  &__name {
+    margin: 0;
+  }
+
+  &__meta-actions {
+    display: inline-flex;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  &__track {
+    position: relative;
+    height: 100px;
+    overflow: hidden;
+  }
+
+  &__road {
+    position: absolute;
+    left: 0;
+    right: 0;
+
+    top: 50%;
+    transform: translateY(2px);
+
+    height: 3px;
+
+    background: repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.9) 0 14px,
+      transparent 14px 20px
+    );
+  }
+
+  &__car-icon {
+    position: absolute;
+    left: 0;
+
+    top: 50%;
+    transform: translate3d(var(--car-x, 0px), -100%, 0);
+    z-index: 1;
+
+    display: block;
+    width: 90px;
+    height: 40px;
+
+    background-color: $color-white;
+
+    -webkit-mask-image: url('@/assets/icons/car.svg');
+    mask-image: url('@/assets/icons/car.svg');
+
+    -webkit-mask-position: center;
+    mask-position: center;
+
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+
+    background-clip: padding-box;
+
+    will-change: transform;
+  }
+
+  &__flag {
+    position: absolute;
+    right: 0;
+
+    top: 50%;
+    transform: translate3d(0, -100%, 0);
+    z-index: 1;
+
+    display: block;
+    width: 60px;
+    height: 60px;
+
+    background-color: $color-white;
+
+    -webkit-mask-image: url('@/assets/icons/flag.svg');
+    mask-image: url('@/assets/icons/flag.svg');
+
+    -webkit-mask-position: center;
+    mask-position: center;
+
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+  }
+
+  &__controls {
+    margin-top: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+}

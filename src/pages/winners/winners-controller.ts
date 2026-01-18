@@ -4,6 +4,7 @@ import { getCarByIdMock } from './mocks-api';
 import { winnersMock } from './mocks-winners';
 import { createWinnersView } from './winners-view';
 import { WINNER_TABLE_ROWS_PER_PAGE } from '@/constants/constants';
+import { clampPage, getTotalPages } from '@/utils/pagination';
 
 function nextSortState(current: SortState, key: SortKey): SortState {
   if (!current || current.key !== key) return { key, order: 'asc' };
@@ -30,17 +31,6 @@ function sortRows(
   return sorted;
 }
 
-function getTotalPages(totalItems: number): number {
-  const pages = Math.ceil(totalItems / WINNER_TABLE_ROWS_PER_PAGE);
-  return pages > 0 ? pages : 1;
-}
-
-function clampPage(page: number, totalPages: number): number {
-  if (page < 1) return 1;
-  if (page > totalPages) return totalPages;
-  return page;
-}
-
 export function createWinnersController(): HTMLElement {
   const view = createWinnersView({ totalWinners: winnersMock.length });
 
@@ -51,7 +41,7 @@ export function createWinnersController(): HTMLElement {
   const apply = (): void => {
     const sorted = sortRows(rows, sortState);
 
-    const totalPages = getTotalPages(sorted.length);
+    const totalPages = getTotalPages(sorted.length, WINNER_TABLE_ROWS_PER_PAGE);
     page = clampPage(page, totalPages);
 
     const start = (page - 1) * WINNER_TABLE_ROWS_PER_PAGE;

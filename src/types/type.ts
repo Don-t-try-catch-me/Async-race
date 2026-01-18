@@ -32,6 +32,17 @@ export type FooterView = {
 
 export type GarageView = {
   root: HTMLElement;
+
+  nameInput: HTMLInputElement;
+  colorInput: HTMLInputElement;
+  createBtn: HTMLButtonElement;
+  generateBtn: HTMLButtonElement;
+
+  carListContainer: HTMLElement;
+
+  prevBtn: HTMLButtonElement;
+  nextBtn: HTMLButtonElement;
+  pageLabel: HTMLElement;
 };
 
 export type WinnersView = {
@@ -132,4 +143,47 @@ export type ColorPickerProperties = {
 export type ColorPickerView = {
   root: HTMLElement;
   input: HTMLInputElement;
+};
+
+export type CarCardProperties = {
+  id: number;
+  name: string;
+  color: string;
+};
+
+export type CarCardListProperties = {
+  cars: CarDto[];
+};
+
+export type CarCardList = {
+  root: HTMLElement;
+};
+
+export type ButtonVariant =
+  | 'default'
+  | 'primary'
+  | 'success'
+  | 'danger'
+  | 'ghost';
+
+export type ButtonSize = 'sm' | 'md' | 'l';
+
+export type ButtonProperties = {
+  label: string;
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  type?: 'button';
+  disabled?: boolean;
+  ariaLabel?: string;
+  dataset?: Record<string, string>;
+};
+
+export type UIButton = {
+  root: HTMLButtonElement;
+};
+
+export type RaceControls = {
+  root: HTMLElement;
+  raceBtn: HTMLButtonElement;
+  resetBtn: HTMLButtonElement;
 };

@@ -23,6 +23,30 @@ $nav-btn-hover-bg-color: rgba($color-white, $opacity-10);
 $nav-btn-active-border-color: rgba($color-white, $opacity-35);
 $nav-btn-active-bg-color: rgba($color-white, $opacity-10);
 
+// Buttons base
+$btn-bg-default: rgba($color-white, 0.06);
+$btn-border-default: rgba($color-white, 0.14);
+$btn-bg-default-hover: rgba($color-white, 0.08);
+$btn-border-default-hover: rgba($color-white, 0.18);
+
+$btn-bg-primary: rgba($color-white, 0.12);
+$btn-border-primary: rgba($color-white, 0.22);
+
+$btn-border-ghost: rgba($color-white, 0.12);
+$btn-bg-ghost-hover: rgba($color-white, 0.06);
+
+// Buttons
+$color-success: rgb(0, 200, 120);
+$color-danger: rgb(255, 70, 70);
+
+$btn-bg-success: rgba($color-success, 0.16);
+$btn-border-success: rgba($color-success, 0.35);
+$btn-bg-success-hover: rgba($color-success, 0.22);
+
+$btn-bg-danger: rgba($color-danger, 0.16);
+$btn-border-danger: rgba($color-danger, 0.35);
+$btn-bg-danger-hover: rgba($color-danger, 0.22);
+
 // Background gradient
 $bg-radial-1-size: 850px;
 $bg-radial-1-x: 18%;
