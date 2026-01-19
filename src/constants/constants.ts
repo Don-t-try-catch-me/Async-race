@@ -18,9 +18,3 @@ export const CARS_LIST_ROWS_PER_PAGE = 7;
 export const DEFAULT_COLOR: string = '#6c779f';
 
 export const CARS_GENERATE_COUNT = 100;
-
-export enum Route {
-  Garage = '#/',
-  Winners = '#/winners',
-  Error = '#/error',
-}
