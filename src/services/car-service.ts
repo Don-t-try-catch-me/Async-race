@@ -63,3 +63,48 @@ export async function createCar(dto: Omit<CarDto, 'id'>) {
     }
   }
 }
+
+export async function deleteCar(id: number) {
+  let status = 200;
+  try {
+    const response = await fetch(BASE_URL + ENDPOINTS.GARAGE + `/:${id}`, {
+      method: 'DELETE',
+    });
+    if (!response.ok) {
+      status = response.status;
+      throw new Error(`Response status: ${response.status}`);
+    }
+  } catch (error) {
+    if (error instanceof Error && status === STATUS_CODES.NOT_FOUND) {
+      console.error(ERROR_MSG.NOT_FOUND.CAR);
+    }
+  }
+}
+
+export async function updateCar({ id, name, color }: CarDto) {
+  let status = 200;
+  try {
+    const response = await fetch(BASE_URL + ENDPOINTS.GARAGE + `/:${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name, color }),
+    });
+
+    if (!response.ok) {
+      status = response.status;
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const result: unknown = await response.json();
+    if (!isCarDto(result)) {
+      throw new Error('Invalid response format');
+    }
+    return result;
+  } catch (error) {
+    if (error instanceof Error && status === STATUS_CODES.NOT_FOUND) {
+      console.error(ERROR_MSG.NOT_FOUND.CAR);
+    }
+  }
+}
