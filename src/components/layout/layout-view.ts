@@ -1,6 +1,7 @@
 import { createHeaderView } from '@/components/header/header-view';
 import { createFooterView } from '@/components/footer/footer-view';
 import type { LayoutView } from '@/types/type';
+import { FOOTER_CONFIG } from '@/constants/constants';
 
 export function createLayoutView(): LayoutView {
   const root = document.createElement('div');
@@ -15,19 +16,7 @@ export function createLayoutView(): LayoutView {
   content.className = 'container';
   main.append(content);
 
-  const footerView = createFooterView({
-    links: [
-      {
-        label: 'Timofey Naryshkin',
-        href: 'https://github.com/TimofeyNaryshkin',
-      },
-      {
-        label: 'Natasha Solntseva',
-        href: 'https://github.com/NatashaSolntseva',
-      },
-    ],
-    year: '2025',
-  });
+  const footerView = createFooterView(FOOTER_CONFIG);
 
   root.append(headerView.root, main, footerView.root);
 

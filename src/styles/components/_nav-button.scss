@@ -1,4 +1,4 @@
-@use "../constants/variables" as *;
+@use '../constants/variables' as *;
 
 .nav__btn {
   padding: 8px 14px;
@@ -11,7 +11,10 @@
   font: inherit;
   cursor: pointer;
 
-  transition: background-color 160ms ease, border-color 160ms ease, transform 80ms ease;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    transform 80ms ease;
 }
 
 .nav__btn:hover {
