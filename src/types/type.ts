@@ -37,3 +37,9 @@ export type GarageView = {
 export type WinnersView = {
   root: HTMLElement;
 };
+
+export interface CarDto {
+  id: number;
+  name: string;
+  color: string;
+}
