@@ -1,0 +1,47 @@
+@use '../constants/variables' as *;
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  margin-top: 16px;
+
+  &__label {
+    min-width: 140px;
+    text-align: center;
+    color: $color-text-70;
+  }
+
+  &__btn {
+    padding: 8px 14px;
+    border-radius: 12px;
+
+    border: 1px solid $nav-btn-border-color;
+    background: $nav-btn-bg-color;
+
+    color: $color-text;
+    font: inherit;
+    cursor: pointer;
+
+    transition:
+      background-color 160ms ease,
+      border-color 160ms ease,
+      transform 80ms ease;
+  }
+
+  &__btn:hover {
+    background: $nav-btn-hover-bg-color;
+    border-color: $nav-btn-hover-border-color;
+  }
+
+  &__btn:active {
+    transform: translateY(1px);
+  }
+
+  &__btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}

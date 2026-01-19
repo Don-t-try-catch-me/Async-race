@@ -1,18 +1,32 @@
-import type { WinnersView } from '@/types/type';
+import type { WinnersView, WinnersViewProperties } from '@/types/type';
+import { createTotalCounter } from '@/components/ui/total-counter/total-counter';
+import { createWinnersTableView } from '@/components/winners-table/winners-table-view';
+import { createPaginationView } from '@/components/ui/pagination/pagination-view';
 
-export function createWinnersView(): WinnersView {
+export function createWinnersView(
+  properties: WinnersViewProperties
+): WinnersView {
   const root = document.createElement('section');
   root.className = 'page page-winners';
 
-  const title = document.createElement('h1');
-  title.className = 'page__title';
-  title.textContent = 'Winners';
+  const total = createTotalCounter({
+    label: 'winners',
+    count: properties.totalWinners,
+  });
 
-  const hint = document.createElement('p');
-  hint.className = 'page__hint';
-  hint.textContent = 'Stub page. UI will be implemented later.';
+  const table = createWinnersTableView();
 
-  root.append(title, hint);
+  const pagination = createPaginationView({ page: 1, totalPages: 1 });
 
-  return { root };
+  root.append(total, table.root, pagination.root);
+
+  return {
+    root,
+    tableBody: table.tbody,
+    sortWinsBtn: table.sortWinsBtn,
+    sortTimeBtn: table.sortTimeBtn,
+    prevBtn: pagination.prevBtn,
+    nextBtn: pagination.nextBtn,
+    pageLabel: pagination.label,
+  };
 }

@@ -42,23 +42,29 @@ $bg-linear-mid: #2a3444;
 $bg-linear-mid-stop: 52%;
 $bg-linear-end: #141922;
 
-// Text (on dark background) 
+// Text (on dark background)
 $color-text-70: rgba(215, 221, 230, 0.7);
 $color-text-35: rgba(215, 221, 230, $opacity-35);
 $color-text-100: rgba(215, 221, 230, 1);
 
+// Focus outline
+$focus-outline-color: rgba(120, 160, 255, 0.55);
+$focus-outline-width: 2px;
+$focus-outline-offset: 2px;
+
 // Typography
+$font-size-s: 0.8rem;
 $font-size-base: 1rem;
-$font-size-h1: 1.75rem; 
-$font-size-header-title: 1.25rem; 
+$font-size-h1: 1.75rem;
+$font-size-header-title: 1.25rem;
 
 // Font weights
 $font-weight-regular: 400;
 $font-weight-bold: 700;
 
 // Letter spacing (rem)
-$letter-spacing-tight: 0.01rem; 
-$letter-spacing-header-title: 0.02rem; 
+$letter-spacing-tight: 0.01rem;
+$letter-spacing-header-title: 0.02rem;
 
 // Font families
 $font-family-base: 'Roboto', sans-serif;

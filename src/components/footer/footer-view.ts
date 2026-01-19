@@ -11,7 +11,7 @@ function createFooterLink(label: string, href: string): HTMLAnchorElement {
 }
 
 export function createFooterView(parameters: {
-  links: FooterLink[];
+  links: readonly FooterLink[];
   year: string;
 }): FooterView {
   const root = document.createElement('footer');

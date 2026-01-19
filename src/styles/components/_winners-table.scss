@@ -1,0 +1,152 @@
+@use '../constants/variables' as *;
+
+.winners-table {
+  margin-top: 16px;
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+
+    table-layout: fixed;
+
+    border: 1px solid $border-color;
+    overflow: hidden;
+  }
+
+  &__table thead th {
+    text-align: left;
+    padding: 12px 14px;
+
+    background: rgba($color-white, 0.06);
+    border-bottom: 1px solid rgba($color-white, 0.1);
+
+    font-weight: $font-weight-bold;
+    color: $color-text;
+  }
+
+  &__table tbody td {
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba($color-white, 0.08);
+    color: $color-text;
+  }
+
+  &__table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  &__table tbody tr:hover td {
+    background: rgba($color-white, 0.04);
+  }
+
+  &__table th:first-child,
+  &__table td:first-child {
+    width: 70px;
+    color: $color-text-70;
+  }
+
+  &__table th:nth-child(2),
+  &__table td:nth-child(2) {
+    width: 90px;
+    color: $color-text-70;
+    white-space: nowrap;
+  }
+
+  &__table th:nth-child(3),
+  &__table td:nth-child(3) {
+    width: 200px;
+  }
+
+  &__table th:nth-child(4),
+  &__table td:nth-child(4) {
+    width: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__table th:nth-child(5),
+  &__table td:nth-child(5) {
+    width: 230px;
+    white-space: nowrap;
+  }
+
+  &__table th:nth-child(6),
+  &__table td:nth-child(6) {
+    width: 150px;
+    white-space: nowrap;
+  }
+
+  &__car-cell {
+    display: flex;
+    align-items: center;
+  }
+
+  &__car-icon {
+    display: block;
+    width: 90px;
+    height: 40px;
+
+    background-color: $color-white;
+
+    -webkit-mask-image: url('@/assets/icons/car.svg');
+    mask-image: url('@/assets/icons/car.svg');
+
+    -webkit-mask-position: center;
+    mask-position: center;
+
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+  }
+
+  &__th-sortable {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__sort-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+    margin-left: 6px;
+
+    background: transparent;
+    border: none;
+    cursor: pointer;
+
+    color: inherit;
+  }
+
+  &__sort-btn:hover &__sort-icon {
+    background-color: $color-text;
+  }
+
+  &__sort-btn:focus-visible {
+    outline: 2px solid $color-text;
+    outline-offset: 2px;
+  }
+
+  &__sort-icon {
+    width: 30px;
+    height: 30px;
+
+    background-color: $color-text;
+
+    -webkit-mask-image: url('@/assets/icons/sort.svg');
+    mask-image: url('@/assets/icons/sort.svg');
+
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+
+    -webkit-mask-position: center;
+    mask-position: center;
+
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+  }
+}
