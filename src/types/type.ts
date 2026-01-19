@@ -170,11 +170,11 @@ export interface CreateElementOptions {
   children?: Array<Node>;
 }
 
-export enum Route {
-  Garage = '#/',
-  Winners = '#/winners',
-  Error = '#/error',
-}
+export const Route = {
+  Garage: '#/',
+  Winners: '#/winners',
+  Error: '#/error',
+} as const;
 export interface ErrorPageView {
   root: HTMLElement;
   goGarageBtn: HTMLButtonElement;
