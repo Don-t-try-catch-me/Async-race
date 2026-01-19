@@ -39,5 +39,11 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "vite.config.ts"]
+  "include": [
+    "src",
+    "vite.config.ts",
+    "__tests__/__mocks__/mocks-cars.ts",
+    "__tests__/__mocks__/mocks-api.ts",
+    "__tests__/__mocks__/mocks-winners.ts"
+  ]
 }

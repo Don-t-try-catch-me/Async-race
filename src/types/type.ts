@@ -1,6 +1,6 @@
 export type PageKey = 'garage' | 'winners';
 
-export type LayoutView = {
+export interface LayoutView {
   root: HTMLElement;
   header: HTMLElement;
   content: HTMLElement;
@@ -8,33 +8,38 @@ export type LayoutView = {
 
   garageBtn: HTMLButtonElement;
   winnersBtn: HTMLButtonElement;
-};
-
-export type HeaderView = {
+}
+export interface HeaderView {
   root: HTMLElement;
   garageBtn: HTMLButtonElement;
   winnersBtn: HTMLButtonElement;
-};
-
-export type NavButtonParameters = {
+}
+export interface NavButtonParameters {
   label: string;
   className?: string;
-};
-
-export type FooterLink = {
+}
+export interface FooterLink {
   label: string;
   href: string;
-};
-
-export type FooterView = {
+}
+export interface FooterView {
   root: HTMLElement;
-};
-
-export type GarageView = {
+}
+export interface GarageView {
   root: HTMLElement;
-};
 
-export type WinnersView = {
+  nameInput: HTMLInputElement;
+  colorInput: HTMLInputElement;
+  createBtn: HTMLButtonElement;
+  generateBtn: HTMLButtonElement;
+
+  carListContainer: HTMLElement;
+
+  prevBtn: HTMLButtonElement;
+  nextBtn: HTMLButtonElement;
+  pageLabel: HTMLElement;
+}
+export interface WinnersView {
   root: HTMLElement;
   tableBody: HTMLTableSectionElement;
 
@@ -44,44 +49,38 @@ export type WinnersView = {
   prevBtn: HTMLButtonElement;
   nextBtn: HTMLButtonElement;
   pageLabel: HTMLElement;
-};
-
-export type WinnersViewProperties = {
+}
+export interface WinnersViewProperties {
   totalWinners: number;
-};
-
-export type CarDto = {
+}
+export interface CarDto {
   id: number;
   name: string;
   color: string;
-};
-
-export type WinnerDto = {
+}
+export interface WinnerDto {
   id: number;
   wins: number;
   time: number;
-};
-
-export type WinnersTableView = {
+}
+export interface WinnersTableView {
   root: HTMLElement;
   tbody: HTMLTableSectionElement;
   sortWinsBtn: HTMLButtonElement;
   sortTimeBtn: HTMLButtonElement;
-};
-
-export type WinnersTableRow = {
+}
+export interface WinnersTableRow {
   index: number;
   carId: number;
   name: string;
   color: string;
   wins: number;
   time: number;
-};
-
-export type TotalCounterProperties = {
+}
+export interface TotalCounterProperties {
   label: string;
   count: number;
-};
+}
 
 export type SortKey = 'wins' | 'time';
 export type SortOrder = 'asc' | 'desc';
@@ -92,44 +91,81 @@ export type SortState =
       order: SortOrder;
     }
   | undefined;
-
-export type PaginationView = {
+export interface PaginationView {
   root: HTMLElement;
   prevBtn: HTMLButtonElement;
   nextBtn: HTMLButtonElement;
   label: HTMLElement;
-};
-
-export type PaginationProperties = {
+}
+export interface PaginationProperties {
   page: number;
   totalPages: number;
-};
-
-export type GarageViewProperties = {
+}
+export interface GarageViewProperties {
   totalCars: number;
-};
-
-export type TextInputProperties = {
+}
+export interface TextInputProperties {
   id: string;
   name: string;
   label: string;
   placeholder?: string;
   value?: string;
-};
-
-export type TextInputView = {
+}
+export interface TextInputView {
   root: HTMLElement;
   input: HTMLInputElement;
-};
-
-export type ColorPickerProperties = {
+}
+export interface ColorPickerProperties {
   id: string;
   name: string;
   label: string;
   value?: string;
-};
-
-export type ColorPickerView = {
+}
+export interface ColorPickerView {
   root: HTMLElement;
   input: HTMLInputElement;
-};
+}
+export interface CarCardProperties {
+  id: number;
+  name: string;
+  color: string;
+}
+export interface CarCardListProperties {
+  cars: CarDto[];
+}
+export interface CarCardList {
+  root: HTMLElement;
+}
+
+export type ButtonVariant =
+  | 'default'
+  | 'primary'
+  | 'success'
+  | 'danger'
+  | 'ghost';
+
+export type ButtonSize = 'sm' | 'md' | 'l';
+export interface ButtonProperties {
+  label: string;
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  type?: 'button';
+  disabled?: boolean;
+  ariaLabel?: string;
+  dataset?: Record<string, string>;
+}
+export interface UIButton {
+  root: HTMLButtonElement;
+}
+export interface RaceControls {
+  root: HTMLElement;
+  raceBtn: HTMLButtonElement;
+  resetBtn: HTMLButtonElement;
+}
+export interface CreateElementOptions {
+  className?: string;
+  textContent?: string;
+  attrs?: Record<string, string>;
+  dataset?: Record<string, string>;
+  children?: Array<Node>;
+}

@@ -1,28 +1,33 @@
+import { createElement } from '@/utils/create-element';
 import type { ColorPickerProperties, ColorPickerView } from '@/types/type';
 import { DEFAULT_COLOR } from '@/constants/constants';
 
-export function createColorPicker(
+export function CreateColorPicker(
   properties: ColorPickerProperties
 ): ColorPickerView {
-  const root = document.createElement('div');
-  root.className = 'color-picker';
+  const root = createElement('div', { className: 'color-picker' });
 
-  const label = document.createElement('label');
-  label.className = 'color-picker__label';
-  label.htmlFor = properties.id;
-  label.textContent = properties.label;
+  const label = createElement('label', {
+    className: 'color-picker__label',
+    textContent: properties.label,
+    attrs: { for: properties.id },
+  });
 
-  const control = document.createElement('div');
-  control.className = 'color-picker__control';
+  const input = createElement('input', {
+    className: 'color-picker__input',
+    attrs: {
+      type: 'color',
+      id: properties.id,
+      name: properties.name,
+    },
+  });
 
-  const input = document.createElement('input');
-  input.className = 'color-picker__input';
-  input.type = 'color';
-  input.id = properties.id;
-  input.name = properties.name;
+  input.value = properties.value ?? DEFAULT_COLOR;
 
-  const value = properties.value ?? DEFAULT_COLOR;
-  input.value = value;
+  const control = createElement('div', {
+    className: 'color-picker__control',
+    children: [input],
+  });
 
   control.append(input);
   root.append(label, control);

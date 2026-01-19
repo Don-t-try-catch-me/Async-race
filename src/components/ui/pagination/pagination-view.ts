@@ -1,25 +1,19 @@
+import { CreateNavButton } from '@/components/ui/nav-button/nav-button';
 import type { PaginationProperties, PaginationView } from '@/types/type';
+import { createElement } from '@/utils/create-element';
 
-function createNavButton(label: string): HTMLButtonElement {
-  const button = document.createElement('button');
-  button.type = 'button';
-  button.className = 'pagination__btn';
-  button.textContent = label;
-  return button;
-}
-
-export function createPaginationView(
+export function CreatePaginationView(
   properties: PaginationProperties
 ): PaginationView {
-  const root = document.createElement('div');
-  root.className = 'pagination';
+  const root = createElement('div', { className: 'pagination' });
 
-  const previousButton = createNavButton('Prev');
-  const nextButton = createNavButton('Next');
+  const previousButton = CreateNavButton({ label: 'Prev' });
+  const nextButton = CreateNavButton({ label: 'Next' });
 
-  const label = document.createElement('div');
-  label.className = 'pagination__label';
-  label.textContent = `Page ${properties.page} / ${properties.totalPages}`;
+  const label = createElement('div', {
+    className: 'pagination__label',
+    textContent: `Page ${properties.page} / ${properties.totalPages}`,
+  });
 
   root.append(previousButton, label, nextButton);
 

@@ -1,22 +1,22 @@
+import { createElement } from '@/utils/create-element';
+import { CreateTotalCounter } from '@/components/ui/total-counter/total-counter';
+import { CreateWinnersTableView } from '@/components/winners-table/winners-table-view';
+import { CreatePaginationView } from '@/components/ui/pagination/pagination-view';
 import type { WinnersView, WinnersViewProperties } from '@/types/type';
-import { createTotalCounter } from '@/components/ui/total-counter/total-counter';
-import { createWinnersTableView } from '@/components/winners-table/winners-table-view';
-import { createPaginationView } from '@/components/ui/pagination/pagination-view';
 
-export function createWinnersView(
+export function CreateWinnersView(
   properties: WinnersViewProperties
 ): WinnersView {
-  const root = document.createElement('section');
-  root.className = 'page page-winners';
+  const root = createElement('section', { className: 'page page-winners' });
 
-  const total = createTotalCounter({
+  const total = CreateTotalCounter({
     label: 'winners',
     count: properties.totalWinners,
   });
 
-  const table = createWinnersTableView();
+  const table = CreateWinnersTableView();
 
-  const pagination = createPaginationView({ page: 1, totalPages: 1 });
+  const pagination = CreatePaginationView({ page: 1, totalPages: 1 });
 
   root.append(total, table.root, pagination.root);
 

@@ -1,42 +1,96 @@
 import type { GarageView, GarageViewProperties } from '@/types/type';
-import { createTotalCounter } from '@/components/ui/total-counter/total-counter';
-import { createTextInput } from '@/components/ui/text-input/text-input';
-import { createColorPicker } from '@/components/ui/color-picker/color-picker';
-import { DEFAULT_COLOR } from '@/constants/constants';
+import { CreateTotalCounter } from '@/components/ui/total-counter/total-counter';
+import { CreateTextInput } from '@/components/ui/text-input/text-input';
+import { CreateColorPicker } from '@/components/ui/color-picker/color-picker';
+import { CARS_GENERATE_COUNT, DEFAULT_COLOR } from '@/constants/constants';
+import { CreateCarCardList } from '@/components/car-card-list/car-card-list';
+import { CreatePaginationView } from '@/components/ui/pagination/pagination-view';
+import { CreateButton } from '@/components/ui/button/button';
+import { CreateRaceControls } from '@/components/race-controls/race-controls';
+import { createElement } from '@/utils/create-element';
 
 export function createGarageView(properties: GarageViewProperties): GarageView {
-  const root = document.createElement('section');
-  root.className = 'page';
+  const root = createElement('section', { className: 'page' });
 
-  const title = document.createElement('h1');
-  title.className = 'page__title';
-  title.textContent = 'Garage';
+  const title = createElement('h1', {
+    className: 'page__title',
+    textContent: 'Garage',
+  });
 
-  const controls = document.createElement('div');
-  controls.className = 'page__controls';
+  const controls = createElement('div', { className: 'page__controls' });
 
-  const nameInput = createTextInput({
+  const actionCreate = createElement('div', {
+    className: 'page__control-left',
+  });
+
+  const nameInput = CreateTextInput({
     id: 'garage-car-name',
     name: 'name',
     label: 'Add your car to the race',
     placeholder: 'Enter car name',
   });
 
-  const colorPicker = createColorPicker({
+  const colorPicker = CreateColorPicker({
     id: 'garage-car-color',
     name: 'color',
     label: 'Color',
     value: DEFAULT_COLOR,
   });
 
-  controls.append(nameInput.root, colorPicker.root);
+  const createButton_ = CreateButton({
+    label: 'CREATE',
+    variant: 'primary',
+    size: 'l',
+    dataset: { action: 'car-create' },
+    ariaLabel: 'Create car',
+  });
 
-  const total = createTotalCounter({
+  actionCreate.append(nameInput.root, colorPicker.root, createButton_.root);
+
+  const actionGenerate = createElement('div', {
+    className: 'page__control-right',
+  });
+
+  const generateButton = CreateButton({
+    label: `GENERATE ${CARS_GENERATE_COUNT}`,
+    variant: 'ghost',
+    size: 'l',
+    dataset: { action: 'car-generate' },
+    ariaLabel: `Generate ${CARS_GENERATE_COUNT} cars`,
+  });
+
+  actionGenerate.append(generateButton.root);
+
+  controls.append(actionCreate, actionGenerate);
+
+  const raceControls = CreateRaceControls();
+
+  const total = CreateTotalCounter({
     label: 'cars',
     count: properties.totalCars,
   });
 
-  root.append(title, controls, total);
+  const carList = CreateCarCardList();
+  const pagination = CreatePaginationView({ page: 1, totalPages: 1 });
 
-  return { root };
+  root.append(
+    title,
+    controls,
+    raceControls.root,
+    total,
+    carList.root,
+    pagination.root
+  );
+
+  return {
+    root,
+    nameInput: nameInput.input,
+    colorInput: colorPicker.input,
+    createBtn: createButton_.root,
+    generateBtn: generateButton.root,
+    carListContainer: carList.root,
+    prevBtn: pagination.prevBtn,
+    nextBtn: pagination.nextBtn,
+    pageLabel: pagination.label,
+  };
 }

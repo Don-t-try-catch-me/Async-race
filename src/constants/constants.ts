@@ -16,3 +16,5 @@ export const WINNER_TABLE_ROWS_PER_PAGE = 10;
 export const CARS_LIST_ROWS_PER_PAGE = 7;
 
 export const DEFAULT_COLOR: string = '#6c779f';
+
+export const CARS_GENERATE_COUNT = 100;

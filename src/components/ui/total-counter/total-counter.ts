@@ -1,10 +1,11 @@
+import { createElement } from '@/utils/create-element';
 import type { TotalCounterProperties } from '@/types/type';
 
-export function createTotalCounter(
+export function CreateTotalCounter(
   properties: TotalCounterProperties
 ): HTMLParagraphElement {
-  const element = document.createElement('p');
-  element.className = 'page__subtitle';
-  element.textContent = `Total ${properties.label}: ${properties.count}`;
-  return element;
+  return createElement('p', {
+    className: 'page__subtitle',
+    textContent: `Total ${properties.label}: ${properties.count}`,
+  });
 }
