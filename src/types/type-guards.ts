@@ -1,4 +1,4 @@
-import type { CarDto } from './type';
+import type { CarDto, DriveDto, EngineDto } from './type';
 
 export function isCarsArray(data: unknown): data is CarDto[] {
   return Array.isArray(data) && data.every((item) => isCarDto(item));
@@ -14,5 +14,25 @@ export function isCarDto(item: unknown): item is CarDto {
     typeof item.id === 'number' &&
     typeof item.name === 'string' &&
     typeof item.color === 'string'
+  );
+}
+
+export function isEngineDto(item: unknown): item is EngineDto {
+  return (
+    typeof item === 'object' &&
+    item !== null &&
+    'velocity' in item &&
+    'distance' in item &&
+    typeof item.velocity === 'number' &&
+    typeof item.distance === 'number'
+  );
+}
+
+export function isDriveDto(item: unknown): item is DriveDto {
+  return (
+    typeof item === 'object' &&
+    item !== null &&
+    'success' in item &&
+    typeof item.success === 'boolean'
   );
 }

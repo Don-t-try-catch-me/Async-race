@@ -169,3 +169,12 @@ export interface CreateElementOptions {
   dataset?: Record<string, string>;
   children?: Array<Node>;
 }
+
+export type EngineStatus = 'started' | 'stopped';
+export interface EngineDto {
+  velocity: number;
+  distance: number;
+}
+export interface DriveDto {
+  status: boolean;
+}
