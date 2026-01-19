@@ -1,4 +1,3 @@
-import { getCars } from '@services/car-service';
 import './styles/index.scss';
 
 import { createLayoutController } from '@/components/layout/layout-controller';
@@ -16,5 +15,3 @@ function ensureRoot(): HTMLElement {
 const root = ensureRoot();
 
 root.replaceChildren(createLayoutController());
-
-console.log(await getCars());
