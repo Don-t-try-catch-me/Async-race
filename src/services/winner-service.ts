@@ -13,7 +13,7 @@ export async function getWinners(
     const response = await fetch(
       BASE_URL +
         ENDPOINTS.WINNERS +
-        `/?_page=${page}&_limit=${limit}&_sort=${sortBy}&_order=${sortOrder}`
+        `/?_page=${page}&_limit=${limit}&_sort=${sortBy}&_order=${sortOrder.toUpperCase()}`
     );
 
     if (!response.ok) {

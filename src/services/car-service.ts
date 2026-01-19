@@ -1,10 +1,16 @@
 import type { CarDto } from '@/types/type';
 import { BASE_URL, ENDPOINTS, ERROR_MSG, STATUS_CODES } from './constants';
 import { isCarDto, isCarsArray } from '@/types/type-guards';
+import { WINNER_TABLE_ROWS_PER_PAGE } from '@/constants/constants';
 
-export async function getCars() {
+export async function getCars(
+  page: number = 1,
+  limit: number = WINNER_TABLE_ROWS_PER_PAGE
+) {
   try {
-    const response = await fetch(BASE_URL + ENDPOINTS.GARAGE);
+    const response = await fetch(
+      BASE_URL + ENDPOINTS.GARAGE + `/?_page=${page}&_limit=${limit}`
+    );
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
@@ -23,7 +29,7 @@ export async function getCars() {
 export async function getCar(id: number) {
   let status = 200;
   try {
-    const response = await fetch(BASE_URL + ENDPOINTS.GARAGE + `/:${id}`);
+    const response = await fetch(BASE_URL + ENDPOINTS.GARAGE + `/${id}`);
     if (!response.ok) {
       status = response.status;
       throw new Error(`Response status: ${response.status}`);
@@ -67,7 +73,7 @@ export async function createCar(dto: Omit<CarDto, 'id'>) {
 export async function deleteCar(id: number) {
   let status = 200;
   try {
-    const response = await fetch(BASE_URL + ENDPOINTS.GARAGE + `/:${id}`, {
+    const response = await fetch(BASE_URL + ENDPOINTS.GARAGE + `/${id}`, {
       method: 'DELETE',
     });
     if (!response.ok) {
@@ -84,7 +90,7 @@ export async function deleteCar(id: number) {
 export async function updateCar({ id, name, color }: CarDto) {
   let status = 200;
   try {
-    const response = await fetch(BASE_URL + ENDPOINTS.GARAGE + `/:${id}`, {
+    const response = await fetch(BASE_URL + ENDPOINTS.GARAGE + `/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
