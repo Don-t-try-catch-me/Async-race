@@ -3,7 +3,7 @@ import { clampPage, getTotalPages } from '@/utils/pagination';
 import { RenderCarCards } from '@/components/car-card-list/car-card-list-render';
 import { CARS_LIST_ROWS_PER_PAGE } from '@/constants/constants';
 
-import { carsMock } from '../../../__tests__/_mocks_/mocks-cars';
+import { carsMock } from '../../../__tests__/__mocks__/mocks-cars';
 
 export function createGarageController(): HTMLElement {
   const view = createGarageView({ totalCars: carsMock.length });

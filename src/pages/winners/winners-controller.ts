@@ -4,8 +4,8 @@ import { CreateWinnersView } from './winners-view';
 import { WINNER_TABLE_ROWS_PER_PAGE } from '@/constants/constants';
 import { clampPage, getTotalPages } from '@/utils/pagination';
 
-import { getCarByIdMock } from '../../../__tests__/_mocks_/mocks-api';
-import { winnersMock } from '../../../__tests__/_mocks_/mocks-winners';
+import { getCarByIdMock } from '../../../__tests__/__mocks__/mocks-api';
+import { winnersMock } from '../../../__tests__/__mocks__/mocks-winners';
 
 function nextSortState(current: SortState, key: SortKey): SortState {
   if (!current || current.key !== key) return { key, order: 'asc' };
