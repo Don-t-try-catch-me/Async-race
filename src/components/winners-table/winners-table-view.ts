@@ -1,67 +1,67 @@
+import { createElement } from '@/utils/create-element';
 import type { WinnersTableView } from '@/types/type';
 
-function createHeaderCell(label: string): HTMLTableCellElement {
-  const th = document.createElement('th');
-  th.textContent = label;
-  return th;
+function CreateHeaderCell(label: string): HTMLTableCellElement {
+  return createElement('th', { textContent: label });
 }
 
-function createSortableHeaderCell(label: string): {
+function CreateSortableHeaderCell(label: string): {
   th: HTMLTableCellElement;
   button: HTMLButtonElement;
 } {
-  const th = document.createElement('th');
-  th.className = 'winners-table__th';
+  const icon = createElement('span', {
+    className: 'winners-table__sort-icon',
+    attrs: { 'aria-hidden': 'true' },
+  });
 
-  const wrapper = document.createElement('div');
-  wrapper.className = 'winners-table__wrapper winners-table__th-sortable';
+  const button = createElement('button', {
+    className: 'winners-table__sort-btn',
+    attrs: { type: 'button', 'aria-label': `Sort by ${label}` },
+    children: [icon],
+  });
 
-  const text = document.createElement('span');
-  text.className = 'winners-table__th-text';
-  text.textContent = label;
+  const text = createElement('span', {
+    className: 'winners-table__th-text',
+    textContent: label,
+  });
 
-  const button = document.createElement('button');
-  button.type = 'button';
-  button.className = 'winners-table__sort-btn';
-  button.setAttribute('aria-label', `Sort by ${label}`);
+  const wrapper = createElement('div', {
+    className: 'winners-table__wrapper winners-table__th-sortable',
+    children: [text, button],
+  });
 
-  const icon = document.createElement('span');
-  icon.className = 'winners-table__sort-icon';
-  icon.setAttribute('aria-hidden', 'true');
-
-  button.append(icon);
-  wrapper.append(text, button);
-  th.append(wrapper);
+  const th = createElement('th', {
+    className: 'winners-table__th',
+    children: [wrapper],
+  });
 
   return { th, button };
 }
 
-export function createWinnersTableView(): WinnersTableView {
-  const root = document.createElement('div');
-  root.className = 'winners-table';
+export function CreateWinnersTableView(): WinnersTableView {
+  const root = createElement('div', { className: 'winners-table' });
 
-  const table = document.createElement('table');
-  table.className = 'winners-table__table';
+  const table = createElement('table', { className: 'winners-table__table' });
 
-  const thead = document.createElement('thead');
+  const thead = createElement('thead');
 
-  const headRow = document.createElement('tr');
-  const winsHeader = createSortableHeaderCell('Number of Wins');
-  const timeHeader = createSortableHeaderCell('Best time');
+  const headRow = createElement('tr');
+
+  const winsHeader = CreateSortableHeaderCell('Number of Wins');
+  const timeHeader = CreateSortableHeaderCell('Best time');
 
   headRow.append(
-    createHeaderCell('№'),
-    createHeaderCell('ID'),
-    createHeaderCell('Car'),
-    createHeaderCell('Name'),
+    CreateHeaderCell('№'),
+    CreateHeaderCell('ID'),
+    CreateHeaderCell('Car'),
+    CreateHeaderCell('Name'),
     winsHeader.th,
     timeHeader.th
   );
 
   thead.append(headRow);
 
-  const tbody = document.createElement('tbody');
-  tbody.className = 'winners-table__body';
+  const tbody = createElement('tbody', { className: 'winners-table__body' });
 
   table.append(thead, tbody);
   root.append(table);

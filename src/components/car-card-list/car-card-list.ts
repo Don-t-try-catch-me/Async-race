@@ -1,7 +1,7 @@
 import type { CarCardList } from '@/types/type';
+import { createElement } from '@/utils/create-element';
 
-export function createCarCardList(): CarCardList {
-  const root = document.createElement('ul');
-  root.className = 'car-list';
+export function CreateCarCardList(): CarCardList {
+  const root = createElement('ul', { className: 'car-list' });
   return { root };
 }

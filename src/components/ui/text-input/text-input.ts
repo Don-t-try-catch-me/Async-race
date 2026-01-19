@@ -1,23 +1,27 @@
+import { createElement } from '@/utils/create-element';
 import type { TextInputProperties, TextInputView } from '@/types/type';
 
-export function createTextInput(
+export function CreateTextInput(
   properties: TextInputProperties
 ): TextInputView {
-  const root = document.createElement('div');
-  root.className = 'text-input';
+  const root = createElement('div', { className: 'text-input' });
 
-  const label = document.createElement('label');
-  label.className = 'text-input__label';
-  label.htmlFor = properties.id;
-  label.textContent = properties.label;
+  const label = createElement('label', {
+    className: 'text-input__label',
+    textContent: properties.label,
+    attrs: { for: properties.id },
+  });
 
-  const input = document.createElement('input');
-  input.className = 'text-input__control';
-  input.type = 'text';
-  input.id = properties.id;
-  input.name = properties.name;
-  input.placeholder = properties.placeholder ?? '';
-  input.autocomplete = 'off';
+  const input = createElement('input', {
+    className: 'text-input__control',
+    attrs: {
+      type: 'text',
+      id: properties.id,
+      name: properties.name,
+      placeholder: properties.placeholder ?? '',
+      autocomplete: 'off',
+    },
+  });
 
   if (properties.value !== undefined) {
     input.value = properties.value;

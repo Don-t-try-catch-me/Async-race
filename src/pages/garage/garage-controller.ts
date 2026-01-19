@@ -1,8 +1,9 @@
 import { createGarageView } from './garage-view';
-import { carsMock } from './mocks-cars';
 import { clampPage, getTotalPages } from '@/utils/pagination';
-import { renderCarCards } from '@/components/car-card-list/car-card-list-render';
+import { RenderCarCards } from '@/components/car-card-list/car-card-list-render';
 import { CARS_LIST_ROWS_PER_PAGE } from '@/constants/constants';
+
+import { carsMock } from '../../../__tests__/_mocks_/mocks-cars';
 
 export function createGarageController(): HTMLElement {
   const view = createGarageView({ totalCars: carsMock.length });
@@ -18,7 +19,7 @@ export function createGarageController(): HTMLElement {
 
     const pageCars = carsMock.slice(start, end);
 
-    renderCarCards(view.carListContainer, pageCars);
+    RenderCarCards(view.carListContainer, pageCars);
 
     view.pageLabel.textContent = `Page ${page} / ${totalPages}`;
     view.prevBtn.disabled = page <= 1;

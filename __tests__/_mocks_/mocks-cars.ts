@@ -1,4 +1,4 @@
-import type { CarDto } from '../../types/type';
+import type { CarDto } from '../../src/types/type';
 
 export const carsMock: CarDto[] = [
   { id: 1, name: 'Apex', color: '#6c779f' },

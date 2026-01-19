@@ -1,10 +1,11 @@
-import { renderWinnersRows } from '@/components/winners-table/winner-table-raw';
+import { RenderWinnersRows } from '@/components/winners-table/winner-table-raw';
 import type { SortKey, SortState, WinnersTableRow } from '@/types/type';
-import { getCarByIdMock } from './mocks-api';
-import { winnersMock } from './mocks-winners';
-import { createWinnersView } from './winners-view';
+import { CreateWinnersView } from './winners-view';
 import { WINNER_TABLE_ROWS_PER_PAGE } from '@/constants/constants';
 import { clampPage, getTotalPages } from '@/utils/pagination';
+
+import { getCarByIdMock } from '../../../__tests__/_mocks_/mocks-api';
+import { winnersMock } from '../../../__tests__/_mocks_/mocks-winners';
 
 function nextSortState(current: SortState, key: SortKey): SortState {
   if (!current || current.key !== key) return { key, order: 'asc' };
@@ -31,8 +32,8 @@ function sortRows(
   return sorted;
 }
 
-export function createWinnersController(): HTMLElement {
-  const view = createWinnersView({ totalWinners: winnersMock.length });
+export function CreateWinnersController(): HTMLElement {
+  const view = CreateWinnersView({ totalWinners: winnersMock.length });
 
   let rows: WinnersTableRow[] = [];
   let sortState: SortState = undefined;
@@ -54,7 +55,7 @@ export function createWinnersController(): HTMLElement {
         index: start + index + 1,
       }));
 
-    renderWinnersRows(view.tableBody, pageRows);
+    RenderWinnersRows(view.tableBody, pageRows);
 
     view.pageLabel.textContent = `Page ${page} / ${totalPages}`;
     view.prevBtn.disabled = page <= 1;

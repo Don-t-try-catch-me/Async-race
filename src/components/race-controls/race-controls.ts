@@ -1,11 +1,11 @@
 import type { RaceControls } from '@/types/type';
-import { createButton } from '@/components/ui/button/button';
+import { CreateButton } from '@/components/ui/button/button';
+import { createElement } from '@/utils/create-element';
 
-export function createRaceControls(): RaceControls {
-  const root = document.createElement('div');
-  root.className = 'race-controls';
+export function CreateRaceControls(): RaceControls {
+  const root = createElement('div', { className: 'race-controls' });
 
-  const raceButton = createButton({
+  const raceButton = CreateButton({
     label: 'START RACE',
     variant: 'success',
     size: 'sm',
@@ -13,7 +13,7 @@ export function createRaceControls(): RaceControls {
     ariaLabel: 'Start race',
   });
 
-  const resetButton = createButton({
+  const resetButton = CreateButton({
     label: 'RESET RACE',
     variant: 'danger',
     size: 'sm',

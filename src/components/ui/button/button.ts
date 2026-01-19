@@ -1,6 +1,7 @@
 import type { ButtonProperties, UIButton } from '@/types/type';
+import { createElement } from '@/utils/create-element';
 
-export function createButton(properties: ButtonProperties): UIButton {
+export function CreateButton(properties: ButtonProperties): UIButton {
   const {
     label,
     variant = 'default',
@@ -11,19 +12,14 @@ export function createButton(properties: ButtonProperties): UIButton {
     dataset,
   } = properties;
 
-  const root = document.createElement('button');
-  root.className = `btn btn-${variant} btn-${size}`;
-  root.type = type;
+  const root = createElement('button', {
+    className: `btn btn-${variant} btn-${size}`,
+    textContent: label,
+    attrs: ariaLabel ? { type, 'aria-label': ariaLabel } : { type },
+    dataset,
+  });
+
   root.disabled = disabled;
-  root.textContent = label;
-
-  if (ariaLabel) root.setAttribute('aria-label', ariaLabel);
-
-  if (dataset) {
-    for (const [key, value] of Object.entries(dataset)) {
-      root.dataset[key] = value;
-    }
-  }
 
   return { root };
 }

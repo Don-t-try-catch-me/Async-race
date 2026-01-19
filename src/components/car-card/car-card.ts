@@ -1,24 +1,27 @@
+import { CreateButton } from '@/components/ui/button/button';
+import { createElement } from '@/utils/create-element';
 import type { CarCardProperties } from '@/types/type';
-import { createButton } from '@/components/ui/button/button';
 
-export function createCarCard(properties: CarCardProperties): HTMLElement {
+export function CreateCarCard(properties: CarCardProperties): HTMLElement {
   const { id, name, color } = properties;
 
-  const root = document.createElement('li');
-  root.className = 'car-card';
-  root.dataset.carId = String(id);
+  const root = createElement('li', {
+    className: 'car-card',
+    dataset: { carId: String(id) },
+  });
 
-  const header = document.createElement('div');
-  header.className = 'car-card__header';
+  const header = createElement('div', { className: 'car-card__header' });
 
-  const title = document.createElement('h3');
-  title.className = 'car-card__name';
-  title.textContent = name;
+  const title = createElement('h3', {
+    className: 'car-card__name',
+    textContent: name,
+  });
 
-  const metaActions = document.createElement('div');
-  metaActions.className = 'car-card__meta-actions';
+  const metaActions = createElement('div', {
+    className: 'car-card__meta-actions',
+  });
 
-  const editButton = createButton({
+  const editButton = CreateButton({
     label: 'EDIT',
     variant: 'ghost',
     size: 'sm',
@@ -26,7 +29,7 @@ export function createCarCard(properties: CarCardProperties): HTMLElement {
     ariaLabel: `Edit car ${name}`,
   });
 
-  const removeButton = createButton({
+  const removeButton = CreateButton({
     label: 'REMOVE',
     variant: 'danger',
     size: 'sm',
@@ -37,25 +40,20 @@ export function createCarCard(properties: CarCardProperties): HTMLElement {
   metaActions.append(editButton.root, removeButton.root);
   header.append(title, metaActions);
 
-  const track = document.createElement('div');
-  track.className = 'car-card__track';
+  const track = createElement('div', { className: 'car-card__track' });
 
-  const road = document.createElement('div');
-  road.className = 'car-card__road';
+  const road = createElement('div', { className: 'car-card__road' });
 
-  const icon = document.createElement('span');
-  icon.className = 'car-card__car-icon';
+  const icon = createElement('span', { className: 'car-card__car-icon' });
   icon.style.backgroundColor = color;
 
-  const flag = document.createElement('span');
-  flag.className = 'car-card__flag';
+  const flag = createElement('span', { className: 'car-card__flag' });
 
   track.append(road, icon, flag);
 
-  const controls = document.createElement('div');
-  controls.className = 'car-card__controls';
+  const controls = createElement('div', { className: 'car-card__controls' });
 
-  const startButton = createButton({
+  const startButton = CreateButton({
     label: 'START',
     variant: 'success',
     size: 'sm',
@@ -63,7 +61,7 @@ export function createCarCard(properties: CarCardProperties): HTMLElement {
     ariaLabel: `Start car ${name}`,
   });
 
-  const stopButton = createButton({
+  const stopButton = CreateButton({
     label: 'STOP',
     variant: 'danger',
     size: 'sm',

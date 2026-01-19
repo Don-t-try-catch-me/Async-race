@@ -1,35 +1,36 @@
+import { createElement } from '@/utils/create-element';
 import type { FooterLink, FooterView } from '@/types/type';
 
-function createFooterLink(label: string, href: string): HTMLAnchorElement {
-  const link = document.createElement('a');
-  link.className = 'footer__link';
-  link.href = href;
-  link.target = '_blank';
-  link.rel = 'noopener noreferrer';
-  link.textContent = label;
-  return link;
+function CreateFooterLink(label: string, href: string): HTMLAnchorElement {
+  return createElement('a', {
+    className: 'footer__link',
+    textContent: label,
+    attrs: {
+      href,
+      target: '_blank',
+      rel: 'noopener noreferrer',
+    },
+  });
 }
 
-export function createFooterView(parameters: {
+export function CreateFooterView(parameters: {
   links: readonly FooterLink[];
   year: string;
 }): FooterView {
-  const root = document.createElement('footer');
-  root.className = 'footer';
+  const root = createElement('footer', { className: 'footer' });
 
-  const inner = document.createElement('div');
-  inner.className = 'container footer__inner';
+  const inner = createElement('div', { className: 'container footer__inner' });
 
-  const linksWrap = document.createElement('div');
-  linksWrap.className = 'footer__links';
+  const linksWrap = createElement('div', { className: 'footer__links' });
 
   for (const { label, href } of parameters.links) {
-    linksWrap.append(createFooterLink(label, href));
+    linksWrap.append(CreateFooterLink(label, href));
   }
 
-  const year = document.createElement('div');
-  year.className = 'footer__year';
-  year.textContent = parameters.year;
+  const year = createElement('div', {
+    className: 'footer__year',
+    textContent: parameters.year,
+  });
 
   inner.append(linksWrap, year);
   root.append(inner);

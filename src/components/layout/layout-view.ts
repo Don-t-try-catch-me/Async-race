@@ -1,22 +1,22 @@
-import { createHeaderView } from '@/components/header/header-view';
-import { createFooterView } from '@/components/footer/footer-view';
+import { CreateHeaderView } from '@/components/header/header-view';
+import { CreateFooterView } from '@/components/footer/footer-view';
+import { createElement } from '@/utils/create-element';
 import type { LayoutView } from '@/types/type';
 import { FOOTER_CONFIG } from '@/constants/constants';
 
-export function createLayoutView(): LayoutView {
-  const root = document.createElement('div');
-  root.className = 'layout';
+export function CreateLayoutView(): LayoutView {
+  const root = createElement('div', { className: 'layout' });
 
-  const headerView = createHeaderView();
+  const headerView = CreateHeaderView();
 
-  const main = document.createElement('main');
-  main.className = 'main';
+  const content = createElement('div', { className: 'container' });
 
-  const content = document.createElement('div');
-  content.className = 'container';
-  main.append(content);
+  const main = createElement('main', {
+    className: 'main',
+    children: [content],
+  });
 
-  const footerView = createFooterView(FOOTER_CONFIG);
+  const footerView = CreateFooterView(FOOTER_CONFIG);
 
   root.append(headerView.root, main, footerView.root);
 

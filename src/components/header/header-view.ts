@@ -1,22 +1,21 @@
-import { createNavButton } from '@/components/ui/nav-button/nav-button';
+import { CreateNavButton } from '@/components/ui/nav-button/nav-button';
+import { createElement } from '@/utils/create-element';
 import type { HeaderView } from '@/types/type';
 
-export function createHeaderView(): HeaderView {
-  const root = document.createElement('header');
-  root.className = 'header';
+export function CreateHeaderView(): HeaderView {
+  const root = createElement('header', { className: 'header' });
 
-  const inner = document.createElement('div');
-  inner.className = 'container header__inner';
+  const inner = createElement('div', { className: 'container header__inner' });
 
-  const title = document.createElement('h1');
-  title.className = 'header__title';
-  title.textContent = 'Async Race';
+  const title = createElement('h1', {
+    className: 'header__title',
+    textContent: 'Async Race',
+  });
 
-  const nav = document.createElement('nav');
-  nav.className = 'nav';
+  const nav = createElement('nav', { className: 'nav' });
 
-  const garageButton = createNavButton({ label: 'Garage' });
-  const winnersButton = createNavButton({ label: 'Winners' });
+  const garageButton = CreateNavButton({ label: 'Garage' });
+  const winnersButton = CreateNavButton({ label: 'Winners' });
 
   nav.append(garageButton, winnersButton);
   inner.append(title, nav);

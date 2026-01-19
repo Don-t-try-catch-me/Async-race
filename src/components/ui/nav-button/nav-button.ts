@@ -1,11 +1,12 @@
+import { createElement } from '@/utils/create-element';
 import type { NavButtonParameters } from '@/types/type';
 
-export function createNavButton(
+export function CreateNavButton(
   parameters: NavButtonParameters
 ): HTMLButtonElement {
-  const button = document.createElement('button');
-  button.type = 'button';
-  button.className = parameters.className ?? 'nav__btn';
-  button.textContent = parameters.label;
-  return button;
+  return createElement('button', {
+    className: parameters.className ?? 'nav__btn',
+    textContent: parameters.label,
+    attrs: { type: 'button' },
+  });
 }
