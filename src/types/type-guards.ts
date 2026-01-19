@@ -1,4 +1,4 @@
-import type { CarDto } from './type';
+import type { CarDto, WinnerDto } from './type';
 
 export function isCarsArray(data: unknown): data is CarDto[] {
   return Array.isArray(data) && data.every((item) => isCarDto(item));
@@ -14,5 +14,22 @@ export function isCarDto(item: unknown): item is CarDto {
     typeof item.id === 'number' &&
     typeof item.name === 'string' &&
     typeof item.color === 'string'
+  );
+}
+
+export function isWinnersArray(data: unknown): data is WinnerDto[] {
+  return Array.isArray(data);
+}
+
+export function isWinnerDto(item: unknown): item is WinnerDto {
+  return (
+    typeof item === 'object' &&
+    item !== null &&
+    'id' in item &&
+    'wins' in item &&
+    'time' in item &&
+    typeof item.id === 'number' &&
+    typeof item.wins === 'number' &&
+    typeof item.time === 'number'
   );
 }
