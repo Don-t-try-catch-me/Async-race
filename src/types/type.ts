@@ -169,3 +169,13 @@ export interface CreateElementOptions {
   dataset?: Record<string, string>;
   children?: Array<Node>;
 }
+
+export enum Route {
+  Garage = '#/',
+  Winners = '#/winners',
+  Error = '#/error',
+}
+export interface ErrorPageView {
+  root: HTMLElement;
+  goGarageBtn: HTMLButtonElement;
+}
