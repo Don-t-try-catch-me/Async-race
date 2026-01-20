@@ -169,3 +169,13 @@ export interface CreateElementOptions {
   dataset?: Record<string, string>;
   children?: Array<Node>;
 }
+
+export const Route = {
+  Garage: '#/',
+  Winners: '#/winners',
+  Error: '#/error',
+} as const;
+export interface ErrorPageView {
+  root: HTMLElement;
+  goGarageBtn: HTMLButtonElement;
+}
