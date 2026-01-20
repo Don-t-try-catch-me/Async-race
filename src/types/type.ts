@@ -169,3 +169,25 @@ export interface CreateElementOptions {
   dataset?: Record<string, string>;
   children?: Array<Node>;
 }
+
+export type EngineStatus = 'started' | 'stopped';
+
+export interface EngineDto {
+  velocity: number;
+  distance: number;
+}
+
+export interface DriveDto {
+  status: boolean;
+}
+
+export const Route = {
+  Garage: '#/',
+  Winners: '#/winners',
+  Error: '#/error',
+} as const;
+
+export interface ErrorPageView {
+  root: HTMLElement;
+  goGarageBtn: HTMLButtonElement;
+}
