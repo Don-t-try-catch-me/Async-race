@@ -1,5 +1,3 @@
-export type PageKey = 'garage' | 'winners';
-
 export interface LayoutView {
   root: HTMLElement;
   header: HTMLElement;
@@ -186,6 +184,8 @@ export const Route = {
   Winners: '#/winners',
   Error: '#/error',
 } as const;
+
+export type Route = (typeof Route)[keyof typeof Route];
 
 export interface ErrorPageView {
   root: HTMLElement;

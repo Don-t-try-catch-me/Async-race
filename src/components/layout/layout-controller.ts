@@ -1,29 +1,41 @@
 import { CreateLayoutView } from './layout-view';
 import { createGarageController } from '@/pages/garage/garage-controller';
 import { CreateWinnersController } from '@/pages/winners/winners-controller';
-import type { LayoutView, PageKey } from '@/types/type';
+import { createErrorPageView } from '@/pages/error/error-page-view';
 
-function setActiveTab(view: LayoutView, page: PageKey): void {
-  view.garageBtn.classList.toggle('nav__btn_active', page === 'garage');
-  view.winnersBtn.classList.toggle('nav__btn_active', page === 'winners');
-}
+import { ensureDefaultRoute, navigate, onRouteChange } from '@/routes/router';
+
+import { Route } from '@/types/type';
 
 export function CreateLayoutController(): HTMLElement {
   const view = CreateLayoutView();
 
-  const renderPage = (page: PageKey): void => {
-    setActiveTab(view, page);
+  const garagePage = createGarageController();
+  const winnersPage = CreateWinnersController();
+  const errorPage = createErrorPageView().root;
 
-    const pageNode =
-      page === 'garage' ? createGarageController() : CreateWinnersController();
+  let currentPage: HTMLElement = garagePage;
 
-    view.content.replaceChildren(pageNode);
+  const showPage = (page: HTMLElement): void => {
+    if (currentPage === page) return;
+    currentPage.remove();
+    currentPage = page;
+    view.content.append(currentPage);
   };
 
-  view.garageBtn.addEventListener('click', () => renderPage('garage'));
-  view.winnersBtn.addEventListener('click', () => renderPage('winners'));
+  const render = (route: string): void => {
+    if (route === Route.Garage) showPage(garagePage);
+    else if (route === Route.Winners) showPage(winnersPage);
+    else showPage(errorPage);
+  };
 
-  renderPage('garage');
+  view.garageBtn.addEventListener('click', () => navigate(Route.Garage));
+  view.winnersBtn.addEventListener('click', () => navigate(Route.Winners));
+
+  view.content.append(currentPage);
+
+  ensureDefaultRoute(Route.Garage);
+  onRouteChange((route) => render(route));
 
   return view.root;
 }
