@@ -82,7 +82,7 @@ export interface TotalCounterProperties {
   count: number;
 }
 
-export type SortKey = 'wins' | 'time';
+export type SortKey = 'id' | 'wins' | 'time';
 export type SortOrder = 'asc' | 'desc';
 
 export type SortState =
