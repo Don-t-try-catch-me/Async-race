@@ -3,11 +3,11 @@ import { clampPage, getTotalPages } from '@/utils/pagination';
 import { RenderCarCards } from '@/components/car-card-list/car-card-list-render';
 import { CARS_LIST_ROWS_PER_PAGE } from '@/constants/constants';
 
-import { createCar, getCars } from '@/services/car-service';
+import { createCar, deleteCar, getCars } from '@/services/car-service';
 
 export async function createGarageController() {
   let page = 1;
-  const cars = await getCars(page);
+  let cars = await getCars(page);
 
   if (!Array.isArray(cars)) {
     console.error('Invalid cars format');
@@ -17,6 +17,8 @@ export async function createGarageController() {
   const view = createGarageView({ totalCars: cars.length });
 
   const apply = (): void => {
+    if (!Array.isArray(cars)) return;
+
     const totalPages = getTotalPages(cars.length, CARS_LIST_ROWS_PER_PAGE);
     page = clampPage(page, totalPages);
 
@@ -24,6 +26,7 @@ export async function createGarageController() {
     const end = start + CARS_LIST_ROWS_PER_PAGE;
 
     const pageCars = cars.slice(start, end);
+    view.changeTotal(cars.length);
 
     RenderCarCards(view.carListContainer, pageCars);
 
@@ -40,12 +43,36 @@ export async function createGarageController() {
       return;
     }
     const car = await createCar({ name, color });
-    if (!car) return;
+    if (!car || !Array.isArray(cars)) return;
 
     cars.push(car);
     apply();
-    view.changeTotal(cars.length);
   };
+
+  const handleRemoveButtonClick = async (event: PointerEvent) => {
+    const target = event.target;
+    if (
+      target &&
+      target instanceof HTMLButtonElement &&
+      target.textContent === 'REMOVE'
+    ) {
+      const carCard = target.closest('.car-card');
+      if (!carCard || !(carCard instanceof HTMLElement)) return;
+      const id = carCard.dataset.carId;
+      if (!id) return;
+
+      const deleted = await deleteCar(+id);
+      if (!deleted) return;
+
+      cars = cars?.filter((car) => car.id !== +id);
+      apply();
+    }
+  };
+
+  view.root.addEventListener(
+    'click',
+    (event) => void handleRemoveButtonClick(event)
+  );
 
   view.prevBtn.addEventListener('click', () => {
     page -= 1;

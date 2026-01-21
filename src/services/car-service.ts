@@ -80,6 +80,7 @@ export async function deleteCar(id: number) {
       status = response.status;
       throw new Error(`Response status: ${response.status}`);
     }
+    return true;
   } catch (error) {
     if (error instanceof Error && status === STATUS_CODES.NOT_FOUND) {
       console.error(ERROR_MSG.NOT_FOUND.CAR);
