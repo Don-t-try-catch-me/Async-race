@@ -9,6 +9,8 @@ import {
   getCars,
   updateCar,
 } from '@/services/car-service';
+import { getCarName } from '@/utils/get-car-name';
+import { getColor } from '@/utils/get-color';
 
 export async function createGarageController() {
   let page = 1;
@@ -94,7 +96,22 @@ export async function createGarageController() {
     }
   };
 
+  const handleGenerateButtonClick = async (n = 100) => {
+    for (let index = 0; index < n; index++) {
+      const car = await createCar({ name: getCarName(), color: getColor() });
+      if (!car) continue;
+
+      cars?.push(car);
+    }
+    apply();
+  };
+
   view.root.addEventListener('click', (event) => void handleMetaActions(event));
+
+  view.generateBtn.addEventListener(
+    'click',
+    () => void handleGenerateButtonClick()
+  );
 
   view.prevBtn.addEventListener('click', () => {
     page -= 1;
