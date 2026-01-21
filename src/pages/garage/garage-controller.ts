@@ -3,7 +3,12 @@ import { clampPage, getTotalPages } from '@/utils/pagination';
 import { RenderCarCards } from '@/components/car-card-list/car-card-list-render';
 import { CARS_LIST_ROWS_PER_PAGE } from '@/constants/constants';
 
-import { createCar, deleteCar, getCars } from '@/services/car-service';
+import {
+  createCar,
+  deleteCar,
+  getCars,
+  updateCar,
+} from '@/services/car-service';
 
 export async function createGarageController() {
   let page = 1;
@@ -47,32 +52,49 @@ export async function createGarageController() {
 
     cars.push(car);
     apply();
+
+    view.nameInput.value = '';
   };
 
-  const handleRemoveButtonClick = async (event: PointerEvent) => {
+  const handleMetaActions = async (event: PointerEvent) => {
     const target = event.target;
-    if (
-      target &&
-      target instanceof HTMLButtonElement &&
-      target.textContent === 'REMOVE'
-    ) {
+    if (target && target instanceof HTMLButtonElement) {
       const carCard = target.closest('.car-card');
       if (!carCard || !(carCard instanceof HTMLElement)) return;
       const id = carCard.dataset.carId;
       if (!id) return;
 
-      const deleted = await deleteCar(+id);
-      if (!deleted) return;
+      if (target.textContent === 'REMOVE') {
+        const deleted = await deleteCar(+id);
+        if (!deleted) return;
+        cars = cars?.filter((car) => car.id !== +id);
+      }
 
-      cars = cars?.filter((car) => car.id !== +id);
+      if (target.textContent === 'EDIT') {
+        const color = view.colorInput.value;
+        const name = view.nameInput.value;
+        if (!color || !name) {
+          console.error('Name and color are required to update a car');
+          return;
+        }
+
+        const updatedCar = await updateCar({ id: +id, name, color });
+        if (!updatedCar) return;
+
+        cars?.splice(
+          cars.findIndex((car) => car.id === +id),
+          1,
+          updatedCar
+        );
+
+        view.nameInput.value = '';
+      }
+
       apply();
     }
   };
 
-  view.root.addEventListener(
-    'click',
-    (event) => void handleRemoveButtonClick(event)
-  );
+  view.root.addEventListener('click', (event) => void handleMetaActions(event));
 
   view.prevBtn.addEventListener('click', () => {
     page -= 1;
