@@ -18,9 +18,8 @@ export function CreateLayoutController(): HTMLElement {
 
   const showPage = (page: HTMLElement): void => {
     if (currentPage === page) return;
-    currentPage.remove();
     currentPage = page;
-    view.content.append(currentPage);
+    view.content.replaceChildren(currentPage);
   };
 
   const render = (route: string): void => {

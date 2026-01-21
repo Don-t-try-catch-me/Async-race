@@ -33,7 +33,7 @@ export function isWinnerDto(item: unknown): item is WinnerDto {
     typeof item.time === 'number'
   );
 }
-    
+
 export function isEngineDto(item: unknown): item is EngineDto {
   return (
     typeof item === 'object' &&
