@@ -18,7 +18,7 @@ export function CreateWinnersView(
 
   const pagination = CreatePaginationView({ page: 1, totalPages: 1 });
 
-  root.append(total, table.root, pagination.root);
+  root.append(total.root, table.root, pagination.root);
 
   return {
     root,
