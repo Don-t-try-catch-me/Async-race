@@ -77,7 +77,7 @@ export function createGarageView(properties: GarageViewProperties): GarageView {
     title,
     controls,
     raceControls.root,
-    total,
+    total.root,
     carList.root,
     pagination.root
   );
@@ -92,5 +92,6 @@ export function createGarageView(properties: GarageViewProperties): GarageView {
     prevBtn: pagination.prevBtn,
     nextBtn: pagination.nextBtn,
     pageLabel: pagination.label,
+    changeTotal: total.change,
   };
 }

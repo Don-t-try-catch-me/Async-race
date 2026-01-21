@@ -3,13 +3,14 @@ import { clampPage, getTotalPages } from '@/utils/pagination';
 import { RenderCarCards } from '@/components/car-card-list/car-card-list-render';
 import { CARS_LIST_ROWS_PER_PAGE } from '@/constants/constants';
 
-import { getCars } from '@/services/car-service';
+import { createCar, getCars } from '@/services/car-service';
 
 export async function createGarageController() {
   let page = 1;
   const cars = await getCars(page);
 
   if (!Array.isArray(cars)) {
+    console.error('Invalid cars format');
     return;
   }
 
@@ -31,6 +32,21 @@ export async function createGarageController() {
     view.nextBtn.disabled = page >= totalPages;
   };
 
+  const handleCreateButtonClick = async () => {
+    const color = view.colorInput.value;
+    const name = view.nameInput.value;
+    if (!color || !name) {
+      console.error('Name and color are required to create a car');
+      return;
+    }
+    const car = await createCar({ name, color });
+    if (!car) return;
+
+    cars.push(car);
+    apply();
+    view.changeTotal(cars.length);
+  };
+
   view.prevBtn.addEventListener('click', () => {
     page -= 1;
     apply();
@@ -40,6 +56,11 @@ export async function createGarageController() {
     page += 1;
     apply();
   });
+
+  view.createBtn.addEventListener(
+    'click',
+    () => void handleCreateButtonClick()
+  );
 
   apply();
 
