@@ -3,7 +3,6 @@ import path from 'node:path';
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/Async-race/',
   build: {
     outDir: 'dist',
   },

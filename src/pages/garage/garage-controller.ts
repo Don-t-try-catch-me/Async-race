@@ -3,21 +3,26 @@ import { clampPage, getTotalPages } from '@/utils/pagination';
 import { RenderCarCards } from '@/components/car-card-list/car-card-list-render';
 import { CARS_LIST_ROWS_PER_PAGE } from '@/constants/constants';
 
-import { carsMock } from '../../../__tests__/__mocks__/mocks-cars';
+import { getCars } from '@/services/car-service';
 
-export function createGarageController(): HTMLElement {
-  const view = createGarageView({ totalCars: carsMock.length });
-
+export async function createGarageController() {
   let page = 1;
+  const cars = await getCars(page);
+
+  if (!Array.isArray(cars)) {
+    return;
+  }
+
+  const view = createGarageView({ totalCars: cars.length });
 
   const apply = (): void => {
-    const totalPages = getTotalPages(carsMock.length, CARS_LIST_ROWS_PER_PAGE);
+    const totalPages = getTotalPages(cars.length, CARS_LIST_ROWS_PER_PAGE);
     page = clampPage(page, totalPages);
 
     const start = (page - 1) * CARS_LIST_ROWS_PER_PAGE;
     const end = start + CARS_LIST_ROWS_PER_PAGE;
 
-    const pageCars = carsMock.slice(start, end);
+    const pageCars = cars.slice(start, end);
 
     RenderCarCards(view.carListContainer, pageCars);
 

@@ -8,22 +8,40 @@ function setActiveTab(view: LayoutView, page: PageKey): void {
   view.winnersBtn.classList.toggle('nav__btn_active', page === 'winners');
 }
 
-export function CreateLayoutController(): HTMLElement {
+export async function CreateLayoutController() {
   const view = CreateLayoutView();
 
-  const renderPage = (page: PageKey): void => {
+  view.garageBtn.addEventListener(
+    'click',
+    () => void renderPage('garage', view)
+  );
+  view.winnersBtn.addEventListener(
+    'click',
+    () => void renderPage('winners', view)
+  );
+
+  await renderPage('garage', view);
+
+  return view.root;
+}
+
+async function renderPage(page: PageKey, view: LayoutView) {
+  try {
     setActiveTab(view, page);
 
     const pageNode =
-      page === 'garage' ? createGarageController() : CreateWinnersController();
+      page === 'garage'
+        ? await createGarageController()
+        : CreateWinnersController();
+
+    if (!pageNode) {
+      throw new Error('Failed to render page, please try again');
+    }
 
     view.content.replaceChildren(pageNode);
-  };
-
-  view.garageBtn.addEventListener('click', () => renderPage('garage'));
-  view.winnersBtn.addEventListener('click', () => renderPage('winners'));
-
-  renderPage('garage');
-
-  return view.root;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+  }
 }
