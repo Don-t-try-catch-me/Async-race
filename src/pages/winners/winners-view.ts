@@ -18,15 +18,17 @@ export function CreateWinnersView(
 
   const pagination = CreatePaginationView({ page: 1, totalPages: 1 });
 
-  root.append(total, table.root, pagination.root);
+  root.append(total.root, table.root, pagination.root);
 
   return {
     root,
     tableBody: table.tbody,
+    sortIdBtn: table.sortIdBtn,
     sortWinsBtn: table.sortWinsBtn,
     sortTimeBtn: table.sortTimeBtn,
     prevBtn: pagination.prevBtn,
     nextBtn: pagination.nextBtn,
     pageLabel: pagination.label,
+    total,
   };
 }
