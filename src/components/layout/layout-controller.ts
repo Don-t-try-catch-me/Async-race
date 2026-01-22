@@ -1,47 +1,44 @@
 import { CreateLayoutView } from './layout-view';
 import { createGarageController } from '@/pages/garage/garage-controller';
 import { CreateWinnersController } from '@/pages/winners/winners-controller';
-import type { LayoutView, PageKey } from '@/types/type';
+import { createErrorPageView } from '@/pages/error/error-page-view';
 
-function setActiveTab(view: LayoutView, page: PageKey): void {
-  view.garageBtn.classList.toggle('nav__btn_active', page === 'garage');
-  view.winnersBtn.classList.toggle('nav__btn_active', page === 'winners');
-}
+import { ensureDefaultRoute, navigate, onRouteChange } from '@/routes/router';
+
+import { Route } from '@/types/type';
 
 export async function CreateLayoutController() {
   const view = CreateLayoutView();
 
-  view.garageBtn.addEventListener(
-    'click',
-    () => void renderPage('garage', view)
-  );
-  view.winnersBtn.addEventListener(
-    'click',
-    () => void renderPage('winners', view)
-  );
+  const garagePage = await createGarageController();
+  const winnersPage = CreateWinnersController();
+  const errorPage = createErrorPageView().root;
 
-  await renderPage('garage', view);
+  if (!garagePage) {
+    throw new Error('Failed to render page, please try again');
+  }
+
+  let currentPage: HTMLElement = garagePage;
+
+  const showPage = (page: HTMLElement): void => {
+    if (currentPage === page) return;
+    currentPage = page;
+    view.content.replaceChildren(currentPage);
+  };
+
+  const render = (route: string): void => {
+    if (route === Route.Garage) showPage(garagePage);
+    else if (route === Route.Winners) showPage(winnersPage);
+    else showPage(errorPage);
+  };
+
+  view.garageBtn.addEventListener('click', () => navigate(Route.Garage));
+  view.winnersBtn.addEventListener('click', () => navigate(Route.Winners));
+
+  view.content.append(currentPage);
+
+  ensureDefaultRoute(Route.Garage);
+  onRouteChange((route) => render(route));
 
   return view.root;
-}
-
-async function renderPage(page: PageKey, view: LayoutView) {
-  try {
-    setActiveTab(view, page);
-
-    const pageNode =
-      page === 'garage'
-        ? await createGarageController()
-        : CreateWinnersController();
-
-    if (!pageNode) {
-      throw new Error('Failed to render page, please try again');
-    }
-
-    view.content.replaceChildren(pageNode);
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error(error.message);
-    }
-  }
 }
