@@ -60,7 +60,11 @@ export async function createGarageController() {
 
   const handleMetaActions = async (event: PointerEvent) => {
     const target = event.target;
-    if (target && target instanceof HTMLButtonElement) {
+    if (
+      target &&
+      target instanceof HTMLButtonElement &&
+      target.closest('.car-card__meta-actions')
+    ) {
       const carCard = target.closest('.car-card');
       if (!carCard || !(carCard instanceof HTMLElement)) return;
       const id = carCard.dataset.carId;
