@@ -47,12 +47,13 @@ export function CreateWinnersTableView(): WinnersTableView {
 
   const headRow = createElement('tr');
 
+  const idHeader = CreateSortableHeaderCell('ID');
   const winsHeader = CreateSortableHeaderCell('Number of Wins');
   const timeHeader = CreateSortableHeaderCell('Best time');
 
   headRow.append(
     CreateHeaderCell('№'),
-    CreateHeaderCell('ID'),
+    idHeader.th,
     CreateHeaderCell('Car'),
     CreateHeaderCell('Name'),
     winsHeader.th,
@@ -69,6 +70,7 @@ export function CreateWinnersTableView(): WinnersTableView {
   return {
     root,
     tbody,
+    sortIdBtn: idHeader.button,
     sortWinsBtn: winsHeader.button,
     sortTimeBtn: timeHeader.button,
   };

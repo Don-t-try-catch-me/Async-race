@@ -77,7 +77,7 @@ export function createGarageView(properties: GarageViewProperties): GarageView {
     title,
     controls,
     raceControls.root,
-    total,
+    total.root,
     carList.root,
     pagination.root
   );
