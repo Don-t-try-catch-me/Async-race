@@ -12,11 +12,14 @@ import {
 import { getCarName } from '@/utils/get-car-name';
 import { getColor } from '@/utils/get-color';
 import type { CarDto } from '@/types/type';
+import type { CarController } from '@/utils/control-car';
 
 export async function createGarageController() {
   let page = 1;
   let cars: CarDto[] = [];
   let totalCount = 0;
+  let controllers: CarController[] = [];
+  let raceAbortController: AbortController | undefined;
 
   const fetchPage = async (): Promise<void> => {
     const data = await getCars(page);
@@ -36,7 +39,7 @@ export async function createGarageController() {
 
     view.total.change(totalCount);
 
-    RenderCarCards(view.carListContainer, cars);
+    controllers = RenderCarCards(view.carListContainer, cars);
 
     view.pageLabel.textContent = `Page ${page} / ${totalPages}`;
     view.prevBtn.disabled = page <= 1;
@@ -119,11 +122,53 @@ export async function createGarageController() {
     apply();
   };
 
+  const handleRaceButtonClick = async () => {
+    raceAbortController = new AbortController();
+    const startAndDrivePromises = controllers.map((c) =>
+      c.startEngineAndDrive()
+    );
+    const result = await Promise.allSettled(startAndDrivePromises);
+
+    if (raceAbortController.signal.aborted) {
+      console.error('Race was cancelled');
+      return;
+    }
+
+    const finished = result
+      .filter((r) => r.status === 'fulfilled')
+      .map((r) => r.value)
+      .filter((v) => v !== undefined);
+
+    const winner = finished.toSorted((a, b) => a.time - b.time)[0];
+    console.log(winner);
+  };
+
+  const handleResetButtonClick = async () => {
+    raceAbortController?.abort();
+    const stopCarPromises = controllers.map((c) => c.stopCar(true));
+    await Promise.allSettled(stopCarPromises);
+  };
+
   view.root.addEventListener('click', (event) => void handleMetaActions(event));
 
   view.generateBtn.addEventListener(
     'click',
     () => void handleGenerateButtonClick()
+  );
+
+  view.createBtn.addEventListener(
+    'click',
+    () => void handleCreateButtonClick()
+  );
+
+  view.raceControls.raceBtn.addEventListener(
+    'click',
+    () => void handleRaceButtonClick()
+  );
+
+  view.raceControls.resetBtn.addEventListener(
+    'click',
+    () => void handleResetButtonClick()
   );
 
   view.prevBtn.addEventListener(
@@ -134,11 +179,6 @@ export async function createGarageController() {
   view.nextBtn.addEventListener(
     'click',
     () => void handlePaginationButtonClick(1)
-  );
-
-  view.createBtn.addEventListener(
-    'click',
-    () => void handleCreateButtonClick()
   );
 
   apply();

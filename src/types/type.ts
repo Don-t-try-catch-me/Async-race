@@ -37,6 +37,8 @@ export interface GarageView {
   nextBtn: HTMLButtonElement;
   pageLabel: HTMLElement;
 
+  raceControls: RaceControls;
+
   total: {
     root: HTMLElement;
     change: (n: number) => void;
