@@ -11,31 +11,32 @@ import {
 } from '@/services/car-service';
 import { getCarName } from '@/utils/get-car-name';
 import { getColor } from '@/utils/get-color';
+import type { CarDto } from '@/types/type';
 
 export async function createGarageController() {
   let page = 1;
-  let cars = await getCars(page);
+  let cars: CarDto[] = [];
+  let totalCount = 0;
 
-  if (!Array.isArray(cars)) {
-    console.error('Invalid cars format');
-    return;
-  }
+  const fetchPage = async (): Promise<void> => {
+    const data = await getCars(page);
+    if (!data) return;
 
-  const view = createGarageView({ totalCars: cars.length });
+    cars = data.items;
+    totalCount = data.totalCount;
+  };
+
+  await fetchPage();
+
+  const view = createGarageView({ totalCars: totalCount });
 
   const apply = (): void => {
-    if (!Array.isArray(cars)) return;
-
-    const totalPages = getTotalPages(cars.length, CARS_LIST_ROWS_PER_PAGE);
+    const totalPages = getTotalPages(totalCount, CARS_LIST_ROWS_PER_PAGE);
     page = clampPage(page, totalPages);
 
-    const start = (page - 1) * CARS_LIST_ROWS_PER_PAGE;
-    const end = start + CARS_LIST_ROWS_PER_PAGE;
+    view.total.change(totalCount);
 
-    const pageCars = cars.slice(start, end);
-    view.changeTotal(cars.length);
-
-    RenderCarCards(view.carListContainer, pageCars);
+    RenderCarCards(view.carListContainer, cars);
 
     view.pageLabel.textContent = `Page ${page} / ${totalPages}`;
     view.prevBtn.disabled = page <= 1;
@@ -50,9 +51,10 @@ export async function createGarageController() {
       return;
     }
     const car = await createCar({ name, color });
-    if (!car || !Array.isArray(cars)) return;
+    if (!car) return;
 
     cars.push(car);
+    ++totalCount;
     apply();
 
     view.nameInput.value = '';
@@ -70,6 +72,7 @@ export async function createGarageController() {
         const deleted = await deleteCar(+id);
         if (!deleted) return;
         cars = cars?.filter((car) => car.id !== +id);
+        --totalCount;
       }
 
       if (target.textContent === 'EDIT') {
@@ -100,9 +103,15 @@ export async function createGarageController() {
     for (let index = 0; index < n; index++) {
       const car = await createCar({ name: getCarName(), color: getColor() });
       if (!car) continue;
-
-      cars?.push(car);
     }
+
+    await fetchPage();
+    apply();
+  };
+
+  const handlePaginationButtonClick = async (n: number) => {
+    page += n;
+    await fetchPage();
     apply();
   };
 
@@ -113,15 +122,15 @@ export async function createGarageController() {
     () => void handleGenerateButtonClick()
   );
 
-  view.prevBtn.addEventListener('click', () => {
-    page -= 1;
-    apply();
-  });
+  view.prevBtn.addEventListener(
+    'click',
+    () => void handlePaginationButtonClick(-1)
+  );
 
-  view.nextBtn.addEventListener('click', () => {
-    page += 1;
-    apply();
-  });
+  view.nextBtn.addEventListener(
+    'click',
+    () => void handlePaginationButtonClick(1)
+  );
 
   view.createBtn.addEventListener(
     'click',
