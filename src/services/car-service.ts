@@ -1,11 +1,11 @@
 import type { CarDto } from '@/types/type';
 import { BASE_URL, ENDPOINTS, ERROR_MSG, STATUS_CODES } from './constants';
 import { isCarDto, isCarsArray } from '@/types/type-guards';
-import { WINNER_TABLE_ROWS_PER_PAGE } from '@/constants/constants';
+import { CARS_LIST_ROWS_PER_PAGE } from '@/constants/constants';
 
 export async function getCars(
   page: number = 1,
-  limit: number = WINNER_TABLE_ROWS_PER_PAGE
+  limit: number = CARS_LIST_ROWS_PER_PAGE
 ) {
   try {
     const response = await fetch(
@@ -14,11 +14,16 @@ export async function getCars(
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
+
+    const totalHeader = response.headers.get('X-Total-Count');
+    const totalCount = totalHeader ? Number(totalHeader) : 0;
+
     const result: unknown = await response.json();
     if (!isCarsArray(result)) {
       throw new Error('Invalid response format');
     }
-    return result;
+
+    return { items: result, totalCount };
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
@@ -80,6 +85,7 @@ export async function deleteCar(id: number) {
       status = response.status;
       throw new Error(`Response status: ${response.status}`);
     }
+    return true;
   } catch (error) {
     if (error instanceof Error && status === STATUS_CODES.NOT_FOUND) {
       console.error(ERROR_MSG.NOT_FOUND.CAR);

@@ -14,4 +14,4 @@ function ensureRoot(): HTMLElement {
 
 const root = ensureRoot();
 
-root.replaceChildren(CreateLayoutController());
+root.replaceChildren(await CreateLayoutController());

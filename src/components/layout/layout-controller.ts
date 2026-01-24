@@ -7,12 +7,16 @@ import { ensureDefaultRoute, navigate, onRouteChange } from '@/routes/router';
 
 import { Route } from '@/types/type';
 
-export function CreateLayoutController(): HTMLElement {
+export async function CreateLayoutController() {
   const view = CreateLayoutView();
 
-  const garagePage = createGarageController();
+  const garagePage = await createGarageController();
   const winnersPage = CreateWinnersController();
   const errorPage = createErrorPageView().root;
+
+  if (!garagePage) {
+    throw new Error('Failed to render page, please try again');
+  }
 
   let currentPage: HTMLElement = garagePage;
 

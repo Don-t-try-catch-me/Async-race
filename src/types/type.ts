@@ -36,6 +36,11 @@ export interface GarageView {
   prevBtn: HTMLButtonElement;
   nextBtn: HTMLButtonElement;
   pageLabel: HTMLElement;
+
+  total: {
+    root: HTMLElement;
+    change: (n: number) => void;
+  };
 }
 export interface WinnersView {
   root: HTMLElement;
