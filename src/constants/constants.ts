@@ -18,3 +18,7 @@ export const CARS_LIST_ROWS_PER_PAGE = 7;
 export const DEFAULT_COLOR: string = '#6c779f';
 
 export const CARS_GENERATE_COUNT = 100;
+
+export const RACE_CONTROLS_TITLE = 'Lights on. Engines ready. Who is the best?';
+
+export const LIGHTS_COLUMNS = 5;
