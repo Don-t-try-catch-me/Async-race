@@ -166,6 +166,7 @@ export interface RaceControls {
   root: HTMLElement;
   raceBtn: HTMLButtonElement;
   resetBtn: HTMLButtonElement;
+  startCountDown: () => Promise<void>;
 }
 export interface CreateElementOptions {
   className?: string;
@@ -201,6 +202,7 @@ export interface ErrorPageView {
 
 export interface RaceTrafficLight {
   root: HTMLElement;
+  startCountDown: () => Promise<void>;
 }
 
 export type LampColor = 'red' | 'yellow' | 'green';

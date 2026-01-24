@@ -47,5 +47,6 @@ export function CreateRaceControls(): RaceControls {
     root,
     raceBtn: raceButton.root,
     resetBtn: resetButton.root,
+    startCountDown: light.startCountDown,
   };
 }

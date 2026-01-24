@@ -124,9 +124,13 @@ export async function createGarageController() {
 
   const handleRaceButtonClick = async () => {
     raceAbortController = new AbortController();
+
+    await view.raceControls.startCountDown();
+
     const startAndDrivePromises = controllers.map((c) =>
       c.startEngineAndDrive()
     );
+
     const result = await Promise.allSettled(startAndDrivePromises);
 
     if (raceAbortController.signal.aborted) {
