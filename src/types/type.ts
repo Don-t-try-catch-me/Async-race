@@ -43,12 +43,18 @@ export interface WinnersView {
   root: HTMLElement;
   tableBody: HTMLTableSectionElement;
 
+  sortIdBtn: HTMLButtonElement;
   sortWinsBtn: HTMLButtonElement;
   sortTimeBtn: HTMLButtonElement;
 
   prevBtn: HTMLButtonElement;
   nextBtn: HTMLButtonElement;
   pageLabel: HTMLElement;
+
+  total: {
+    root: HTMLElement;
+    change: (n: number) => void;
+  };
 }
 export interface WinnersViewProperties {
   totalWinners: number;
@@ -66,6 +72,7 @@ export interface WinnerDto {
 export interface WinnersTableView {
   root: HTMLElement;
   tbody: HTMLTableSectionElement;
+  sortIdBtn: HTMLButtonElement;
   sortWinsBtn: HTMLButtonElement;
   sortTimeBtn: HTMLButtonElement;
 }
@@ -84,13 +91,6 @@ export interface TotalCounterProperties {
 
 export type SortKey = 'id' | 'wins' | 'time';
 export type SortOrder = 'asc' | 'desc';
-
-export type SortState =
-  | {
-      key: SortKey;
-      order: SortOrder;
-    }
-  | undefined;
 export interface PaginationView {
   root: HTMLElement;
   prevBtn: HTMLButtonElement;

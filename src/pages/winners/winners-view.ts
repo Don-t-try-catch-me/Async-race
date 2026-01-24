@@ -23,10 +23,12 @@ export function CreateWinnersView(
   return {
     root,
     tableBody: table.tbody,
+    sortIdBtn: table.sortIdBtn,
     sortWinsBtn: table.sortWinsBtn,
     sortTimeBtn: table.sortTimeBtn,
     prevBtn: pagination.prevBtn,
     nextBtn: pagination.nextBtn,
     pageLabel: pagination.label,
+    total,
   };
 }

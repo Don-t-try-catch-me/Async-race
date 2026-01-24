@@ -20,11 +20,14 @@ export async function getWinners(
       throw new Error(`Response status: ${response.status}`);
     }
 
+    const totalHeader = response.headers.get('X-Total-Count');
+    const totalCount = totalHeader ? Number(totalHeader) : 0;
+
     const result: unknown = await response.json();
     if (!isWinnersArray(result)) {
       throw new Error('Invalid response format');
     }
-    return result;
+    return { items: result, totalCount };
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
