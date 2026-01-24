@@ -92,6 +92,6 @@ export function createGarageView(properties: GarageViewProperties): GarageView {
     prevBtn: pagination.prevBtn,
     nextBtn: pagination.nextBtn,
     pageLabel: pagination.label,
-    changeTotal: total.change,
+    total,
   };
 }
