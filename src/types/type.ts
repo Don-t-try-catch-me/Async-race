@@ -167,6 +167,7 @@ export interface RaceControls {
   raceBtn: HTMLButtonElement;
   resetBtn: HTMLButtonElement;
   startCountDown: () => Promise<void>;
+  message: InfoMessageView;
 }
 export interface CreateElementOptions {
   className?: string;

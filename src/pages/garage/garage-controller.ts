@@ -6,6 +6,7 @@ import { CARS_LIST_ROWS_PER_PAGE } from '@/constants/constants';
 import {
   createCar,
   deleteCar,
+  getCar,
   getCars,
   updateCar,
 } from '@/services/car-service';
@@ -13,8 +14,11 @@ import { getCarName } from '@/utils/get-car-name';
 import { getColor } from '@/utils/get-color';
 import type { CarDto } from '@/types/type';
 import type { CarController } from '@/utils/control-car';
+import { handleWinner } from '@/services/winner-service';
 
-export async function createGarageController() {
+export async function createGarageController(
+  updateWinners: () => Promise<void>
+) {
   let page = 1;
   let cars: CarDto[] = [];
   let totalCount = 0;
@@ -127,6 +131,8 @@ export async function createGarageController() {
 
     await view.raceControls.startCountDown();
 
+    view.raceControls.message.setText('Race is on!');
+
     const startAndDrivePromises = controllers.map((c) =>
       c.startEngineAndDrive()
     );
@@ -144,10 +150,22 @@ export async function createGarageController() {
       .filter((v) => v !== undefined);
 
     const winner = finished.toSorted((a, b) => a.time - b.time)[0];
-    console.log(winner);
+    const { id, time } = winner;
+    const winnerCar = await getCar(id);
+    if (!winnerCar) return;
+
+    view.raceControls.message.setText(
+      `Winner: ${winnerCar.name}. Time: ${(time / 1000).toFixed(2)} s`
+    );
+    view.raceControls.message.setVariant('winner');
+
+    await handleWinner({ id, time: time / 1000 });
+    await updateWinners();
   };
 
   const handleResetButtonClick = async () => {
+    view.raceControls.message.setText('Preparing race...');
+    view.raceControls.message.setVariant('loading');
     raceAbortController?.abort();
     const stopCarPromises = controllers.map((c) => c.stopCar(true));
     await Promise.allSettled(stopCarPromises);
