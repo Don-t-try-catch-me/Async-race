@@ -198,3 +198,22 @@ export interface ErrorPageView {
   root: HTMLElement;
   goGarageBtn: HTMLButtonElement;
 }
+
+export interface RaceTrafficLight {
+  root: HTMLElement;
+}
+
+export type LampColor = 'red' | 'yellow' | 'green';
+
+export type InfoMessageVariant = 'loading' | 'winner' | 'error';
+
+export interface InfoMessageProperties {
+  text: string;
+  variant?: InfoMessageVariant;
+}
+
+export interface InfoMessageView {
+  root: HTMLElement;
+  setText: (text: string) => void;
+  setVariant: (variant: InfoMessageVariant) => void;
+}

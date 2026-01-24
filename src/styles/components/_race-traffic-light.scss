@@ -1,0 +1,65 @@
+@use '../constants/variables' as *;
+
+.race-light {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 10px 14px;
+  border: 1px solid $border-color;
+  border-radius: 14px;
+
+  background: rgba($color-white, 0.04);
+
+  &__text {
+    font-weight: $font-weight-bold;
+    letter-spacing: 0.04em;
+    color: $color-text;
+    min-width: 90px;
+  }
+
+  &__lights {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__lamp {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+
+    opacity: 0.25;
+    transform: scale(0.98);
+
+    transition:
+      opacity 0.18s ease,
+      transform 0.18s ease,
+      box-shadow 0.18s ease;
+    border: 1px solid rgba($color-white, 0.16);
+  }
+
+  &__lamp.is-on {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 14px rgba($color-white, 0.18);
+  }
+
+  &__lamp-red {
+    background: $race-light-red;
+  }
+
+  &__lamp-yellow {
+    background: $race-light-yellow;
+  }
+
+  &__lamp-green {
+    background: $race-light-green;
+  }
+}
