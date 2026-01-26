@@ -37,6 +37,8 @@ export interface GarageView {
   nextBtn: HTMLButtonElement;
   pageLabel: HTMLElement;
 
+  raceControls: RaceControls;
+
   total: {
     root: HTMLElement;
     change: (n: number) => void;
@@ -164,6 +166,8 @@ export interface RaceControls {
   root: HTMLElement;
   raceBtn: HTMLButtonElement;
   resetBtn: HTMLButtonElement;
+  startCountDown: () => Promise<void>;
+  message: InfoMessageView;
 }
 export interface CreateElementOptions {
   className?: string;
@@ -199,6 +203,7 @@ export interface ErrorPageView {
 
 export interface RaceTrafficLight {
   root: HTMLElement;
+  startCountDown: () => Promise<void>;
 }
 
 export type LampColor = 'red' | 'yellow' | 'green';

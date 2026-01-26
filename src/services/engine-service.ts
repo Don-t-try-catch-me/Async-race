@@ -1,6 +1,7 @@
 import type { EngineStatus } from '@/types/type';
 import { BASE_URL, ENDPOINTS, ERROR_MSG, STATUS_CODES } from './constants';
 import { isDriveDto, isEngineDto } from '@/types/type-guards';
+import { EngineError } from '@/utils/custom-errors';
 
 export async function handleEngine(id: number, engineStatus: EngineStatus) {
   let status = 200;
@@ -39,11 +40,7 @@ export async function handleEngine(id: number, engineStatus: EngineStatus) {
   }
 }
 
-export async function drive(
-  id: number,
-  signal: AbortSignal,
-  callback?: () => void
-) {
+export async function drive(id: number, signal: AbortSignal) {
   let status = 200;
   try {
     const response = await fetch(
@@ -66,10 +63,6 @@ export async function drive(
     return result;
   } catch (error) {
     if (error instanceof Error) {
-      if (error.name === 'AbortError' && callback) {
-        callback();
-      }
-
       switch (status) {
         case STATUS_CODES.BAD_REQUEST: {
           console.error(ERROR_MSG.BAD_REQUEST);
@@ -85,10 +78,7 @@ export async function drive(
         }
         case STATUS_CODES.INTERNAL_SERVER_ERROR: {
           console.error(ERROR_MSG.INTERNAL_SERVER_ERROR.ENGINE);
-          if (callback) {
-            callback();
-          }
-          break;
+          throw new EngineError();
         }
         default: {
           console.error(error.message);

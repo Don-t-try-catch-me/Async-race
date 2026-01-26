@@ -1,8 +1,9 @@
 import { CreateButton } from '@/components/ui/button/button';
 import { createElement } from '@/utils/create-element';
 import type { CarCardProperties } from '@/types/type';
+import { CarController } from '@/utils/control-car';
 
-export function CreateCarCard(properties: CarCardProperties): HTMLElement {
+export function CreateCarCard(properties: CarCardProperties) {
   const { id, name, color } = properties;
 
   const root = createElement('li', {
@@ -73,5 +74,17 @@ export function CreateCarCard(properties: CarCardProperties): HTMLElement {
 
   root.append(header, track, controls);
 
-  return root;
+  const carController = new CarController(id, icon, road);
+
+  startButton.root.addEventListener(
+    'click',
+    () => void carController.startEngineAndDrive()
+  );
+
+  stopButton.root.addEventListener(
+    'click',
+    () => void carController.stopCar(true)
+  );
+
+  return { root, carController };
 }

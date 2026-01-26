@@ -11,7 +11,7 @@ import { clampPage, getTotalPages } from '@/utils/pagination';
 import { getWinners } from '@/services/winner-service';
 import { getCar } from '@/services/car-service';
 
-export function CreateWinnersController(): HTMLElement {
+export async function CreateWinnersController() {
   let page = 1;
   let winners: WinnerDto[] = [];
   let totalCount = 0;
@@ -121,10 +121,12 @@ export function CreateWinnersController(): HTMLElement {
     })();
   });
 
-  void (async () => {
+  const updateWinners = async () => {
     await fetchPage();
     await apply();
-  })();
+  };
 
-  return view.root;
+  await updateWinners();
+
+  return { root: view.root, updateWinners };
 }

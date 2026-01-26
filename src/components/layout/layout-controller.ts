@@ -10,8 +10,8 @@ import { Route } from '@/types/type';
 export async function CreateLayoutController() {
   const view = CreateLayoutView();
 
-  const garagePage = await createGarageController();
-  const winnersPage = CreateWinnersController();
+  const winnersPage = await CreateWinnersController();
+  const garagePage = await createGarageController(winnersPage.updateWinners);
   const errorPage = createErrorPageView().root;
 
   if (!garagePage) {
@@ -28,7 +28,7 @@ export async function CreateLayoutController() {
 
   const render = (route: string): void => {
     if (route === Route.Garage) showPage(garagePage);
-    else if (route === Route.Winners) showPage(winnersPage);
+    else if (route === Route.Winners) showPage(winnersPage.root);
     else showPage(errorPage);
   };
 

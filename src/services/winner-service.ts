@@ -140,3 +140,21 @@ export async function updateWinner({ id, wins, time }: WinnerDto) {
     }
   }
 }
+
+export async function handleWinner({ id, time }: Omit<WinnerDto, 'wins'>) {
+  const winner = await getWinner(id);
+  if (winner) {
+    const bestTime = Math.min(time, winner.time);
+    await updateWinner({
+      id,
+      time: bestTime,
+      wins: winner.wins + 1,
+    });
+  } else {
+    await createWinner({
+      id,
+      time,
+      wins: 1,
+    });
+  }
+}
