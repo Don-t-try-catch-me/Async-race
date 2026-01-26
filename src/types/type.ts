@@ -30,6 +30,7 @@ export interface GarageView {
   setNameError: (hasError: boolean) => void;
   colorInput: HTMLInputElement;
   createBtn: HTMLButtonElement;
+  updateBtn: HTMLButtonElement;
   generateBtn: HTMLButtonElement;
 
   carListContainer: HTMLElement;

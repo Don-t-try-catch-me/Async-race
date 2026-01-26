@@ -14,7 +14,7 @@ import { getCarName } from '@/utils/get-car-name';
 import { getColor } from '@/utils/get-color';
 import type { CarDto } from '@/types/type';
 import type { CarController } from '@/utils/control-car';
-import { handleWinner } from '@/services/winner-service';
+import { deleteWinner, handleWinner } from '@/services/winner-service';
 
 export async function createGarageController(
   updateWinners: () => Promise<void>
@@ -24,6 +24,7 @@ export async function createGarageController(
   let totalCount = 0;
   let controllers: CarController[] = [];
   let raceAbortController: AbortController | undefined;
+  let carId = 0;
 
   const fetchPage = async (): Promise<void> => {
     const data = await getCars(page);
@@ -80,6 +81,31 @@ export async function createGarageController(
 
     view.nameInput.value = '';
     view.setNameError(false);
+    view.updateBtn.disabled = true;
+  };
+
+  const handleUpdateButtonClick = async (id: number) => {
+    view.updateBtn.disabled = true;
+    const color = view.colorInput.value;
+    const name = view.nameInput.value;
+    if (!color || !name) {
+      console.error(ERROR_TEXT.CAR_NAME_AND_COLOR_REQUIRED);
+      return;
+    }
+
+    const updatedCar = await updateCar({ id, name, color });
+    if (!updatedCar) return;
+
+    cars?.splice(
+      cars.findIndex((car) => car.id === id),
+      1,
+      updatedCar
+    );
+
+    view.nameInput.value = '';
+
+    apply();
+    view.setNameError(false);
   };
 
   const handleMetaActions = async (event: PointerEvent) => {
@@ -93,35 +119,31 @@ export async function createGarageController(
       if (!carCard || !(carCard instanceof HTMLElement)) return;
       const id = carCard.dataset.carId;
       if (!id) return;
+      carId = +id;
 
       if (target.textContent === 'REMOVE') {
-        const deleted = await deleteCar(+id);
+        const deleted = await deleteCar(carId);
         if (!deleted) return;
-        cars = cars?.filter((car) => car.id !== +id);
+        cars = cars?.filter((car) => car.id !== carId);
         --totalCount;
+        if (cars.length === 0) {
+          await fetchPage();
+        }
+        apply();
+        await deleteWinner(carId);
+        await updateWinners();
       }
 
       if (target.textContent === 'EDIT') {
-        const color = view.colorInput.value;
-        const name = view.nameInput.value;
-        if (!color || !name) {
-          console.error(ERROR_TEXT.CAR_NAME_AND_COLOR_REQUIRED);
-          return;
+        view.updateBtn.disabled = false;
+        view.nameInput.focus();
+
+        const car = await getCar(carId);
+        if (car) {
+          view.nameInput.value = car.name;
+          view.colorInput.value = car.color;
         }
-
-        const updatedCar = await updateCar({ id: +id, name, color });
-        if (!updatedCar) return;
-
-        cars?.splice(
-          cars.findIndex((car) => car.id === +id),
-          1,
-          updatedCar
-        );
-
-        view.nameInput.value = '';
       }
-
-      apply();
     }
   };
 
@@ -196,6 +218,11 @@ export async function createGarageController(
   view.createBtn.addEventListener(
     'click',
     () => void handleCreateButtonClick()
+  );
+
+  view.updateBtn.addEventListener(
+    'click',
+    () => void handleUpdateButtonClick(carId)
   );
 
   view.raceControls.raceBtn.addEventListener(

@@ -45,7 +45,21 @@ export function createGarageView(properties: GarageViewProperties): GarageView {
     ariaLabel: 'Create car',
   });
 
-  actionCreate.append(nameInput.root, colorPicker.root, createButton_.root);
+  const updateButton_ = CreateButton({
+    label: 'UPDATE',
+    variant: 'ghost',
+    size: 'l',
+    dataset: { action: 'car-update' },
+    ariaLabel: 'Update car',
+    disabled: true,
+  });
+
+  actionCreate.append(
+    nameInput.root,
+    colorPicker.root,
+    createButton_.root,
+    updateButton_.root
+  );
 
   const actionGenerate = createElement('div', {
     className: 'page__control-right',
@@ -88,6 +102,7 @@ export function createGarageView(properties: GarageViewProperties): GarageView {
     setNameError: nameInput.setError,
     colorInput: colorPicker.input,
     createBtn: createButton_.root,
+    updateBtn: updateButton_.root,
     generateBtn: generateButton.root,
     carListContainer: carList.root,
     prevBtn: pagination.prevBtn,
