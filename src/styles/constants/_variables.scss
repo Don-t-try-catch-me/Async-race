@@ -6,6 +6,7 @@ $color-background: #141922;
 
 // Opacity scale
 $opacity-10: 0.1;
+$opacity-25: 0.25;
 $opacity-35: 0.35;
 $opacity-70: 0.7;
 
@@ -18,16 +19,16 @@ $nav-btn-border-color: rgba($color-white, $opacity-10);
 $nav-btn-bg-color: rgba($color-white, $opacity-10);
 
 $nav-btn-hover-border-color: rgba($color-white, $opacity-35);
-$nav-btn-hover-bg-color: rgba($color-white, $opacity-10);
+$nav-btn-hover-bg-color: rgba($color-white, $opacity-35);
 
 $nav-btn-active-border-color: rgba($color-white, $opacity-35);
-$nav-btn-active-bg-color: rgba($color-white, $opacity-10);
+$nav-btn-active-bg-color: rgba($color-white, $opacity-25);
 
 // Buttons base
 $btn-bg-default: rgba($color-white, 0.06);
 $btn-border-default: rgba($color-white, 0.14);
-$btn-bg-default-hover: rgba($color-white, 0.08);
-$btn-border-default-hover: rgba($color-white, 0.18);
+$btn-bg-default-hover: rgba($color-white, 0.25);
+$btn-border-default-hover: rgba($color-white, 0.25);
 
 $btn-bg-primary: rgba($color-white, 0.12);
 $btn-border-primary: rgba($color-white, 0.22);
@@ -38,6 +39,7 @@ $btn-bg-ghost-hover: rgba($color-white, 0.06);
 // Buttons
 $color-success: rgb(0, 200, 120);
 $color-danger: rgb(255, 70, 70);
+$color-loading: rgba(255, 210, 80);
 
 $btn-bg-success: rgba($color-success, 0.16);
 $btn-border-success: rgba($color-success, 0.35);

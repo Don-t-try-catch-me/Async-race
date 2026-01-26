@@ -1,3 +1,5 @@
+import type { CarController } from '../utils/control-car';
+
 export interface LayoutView {
   root: HTMLElement;
   header: HTMLElement;
@@ -27,6 +29,7 @@ export interface GarageView {
   root: HTMLElement;
 
   nameInput: HTMLInputElement;
+  setNameError: (hasError: boolean) => void;
   colorInput: HTMLInputElement;
   createBtn: HTMLButtonElement;
   updateBtn: HTMLButtonElement;
@@ -120,6 +123,7 @@ export interface TextInputProperties {
 export interface TextInputView {
   root: HTMLElement;
   input: HTMLInputElement;
+  setError: (hasError: boolean) => void;
 }
 export interface ColorPickerProperties {
   id: string;
@@ -209,7 +213,7 @@ export interface RaceTrafficLight {
 
 export type LampColor = 'red' | 'yellow' | 'green';
 
-export type InfoMessageVariant = 'loading' | 'winner' | 'error';
+export type InfoMessageVariant = 'loading' | 'winner' | 'error' | 'default';
 
 export interface InfoMessageProperties {
   text: string;
@@ -221,3 +225,13 @@ export interface InfoMessageView {
   setText: (text: string) => void;
   setVariant: (variant: InfoMessageVariant) => void;
 }
+
+export type CarCardControllerBundle = {
+  controller: CarController;
+  controls: {
+    startBtn: HTMLButtonElement;
+    stopBtn: HTMLButtonElement;
+    editBtn: HTMLButtonElement;
+    removeBtn: HTMLButtonElement;
+  };
+};

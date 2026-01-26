@@ -3,9 +3,16 @@ import { createGarageController } from '@/pages/garage/garage-controller';
 import { CreateWinnersController } from '@/pages/winners/winners-controller';
 import { createErrorPageView } from '@/pages/error/error-page-view';
 
-import { ensureDefaultRoute, navigate, onRouteChange } from '@/routes/router';
+import {
+  ensureDefaultRoute,
+  getCurrentRoute,
+  navigate,
+  onRouteChange,
+} from '@/routes/router';
 
 import { Route } from '@/types/type';
+import { ERROR_TEXT } from '@/constants/constants';
+import { setActiveNav } from '@/utils/set-active-nav';
 
 export async function CreateLayoutController() {
   const view = CreateLayoutView();
@@ -15,7 +22,7 @@ export async function CreateLayoutController() {
   const errorPage = createErrorPageView().root;
 
   if (!garagePage) {
-    throw new Error('Failed to render page, please try again');
+    throw new Error(ERROR_TEXT.FAILED_TO_RENDER_PAGE);
   }
 
   let currentPage: HTMLElement = garagePage;
@@ -26,7 +33,14 @@ export async function CreateLayoutController() {
     view.content.replaceChildren(currentPage);
   };
 
+  const navItems = new Map<Route, HTMLElement>([
+    [Route.Garage, view.garageBtn],
+    [Route.Winners, view.winnersBtn],
+  ]);
+
   const render = (route: string): void => {
+    setActiveNav(route, navItems);
+
     if (route === Route.Garage) showPage(garagePage);
     else if (route === Route.Winners) showPage(winnersPage.root);
     else showPage(errorPage);
@@ -38,6 +52,7 @@ export async function CreateLayoutController() {
   view.content.append(currentPage);
 
   ensureDefaultRoute(Route.Garage);
+  render(getCurrentRoute(Route.Garage));
   onRouteChange((route) => render(route));
 
   return view.root;

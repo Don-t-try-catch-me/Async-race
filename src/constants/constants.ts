@@ -22,3 +22,17 @@ export const CARS_GENERATE_COUNT = 100;
 export const RACE_CONTROLS_TITLE = 'Lights on. Engines ready. Who is the best?';
 
 export const LIGHTS_COLUMNS = 5;
+
+export const ACTIVE_CLASS = 'is-active';
+
+export const ERROR_TEXT = {
+  FAILED_TO_RENDER_PAGE: 'Failed to render page, please try again',
+  CAR_NAME_AND_COLOR_REQUIRED: 'Name and color are required to create a car',
+  RACE_WAS_CANCELLED: 'Race was cancelled',
+} as const;
+
+export const RACE_TEXT = {
+  READY_STEADY_GO: 'Ready, Steady, Go!',
+  PREPARING_RACE: 'Preparing race...',
+  RACE_IS_ON: 'Race is on!',
+} as const;

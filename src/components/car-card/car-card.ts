@@ -74,7 +74,16 @@ export function CreateCarCard(properties: CarCardProperties) {
 
   root.append(header, track, controls);
 
-  const carController = new CarController(id, icon, road);
+  const carController = new CarController(
+    id,
+    icon,
+    road,
+    ({ startDisabled, stopDisabled }) => {
+      if (startDisabled !== undefined)
+        startButton.root.disabled = startDisabled;
+      if (stopDisabled !== undefined) stopButton.root.disabled = stopDisabled;
+    }
+  );
 
   startButton.root.addEventListener(
     'click',
@@ -86,5 +95,14 @@ export function CreateCarCard(properties: CarCardProperties) {
     () => void carController.stopCar(true)
   );
 
-  return { root, carController };
+  return {
+    root,
+    carController,
+    controls: {
+      startBtn: startButton.root,
+      stopBtn: stopButton.root,
+      editBtn: editButton.root,
+      removeBtn: removeButton.root,
+    },
+  };
 }

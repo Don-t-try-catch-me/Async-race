@@ -1,7 +1,12 @@
 import { createGarageView } from './garage-view';
 import { clampPage, getTotalPages } from '@/utils/pagination';
 import { RenderCarCards } from '@/components/car-card-list/car-card-list-render';
-import { CARS_LIST_ROWS_PER_PAGE } from '@/constants/constants';
+import {
+  CARS_GENERATE_COUNT,
+  CARS_LIST_ROWS_PER_PAGE,
+  ERROR_TEXT,
+  RACE_TEXT,
+} from '@/constants/constants';
 
 import {
   createCar,
@@ -12,8 +17,7 @@ import {
 } from '@/services/car-service';
 import { getCarName } from '@/utils/get-car-name';
 import { getColor } from '@/utils/get-color';
-import type { CarDto } from '@/types/type';
-import type { CarController } from '@/utils/control-car';
+import type { CarCardControllerBundle, CarDto } from '@/types/type';
 import { deleteWinner, handleWinner } from '@/services/winner-service';
 
 export async function createGarageController(
@@ -22,7 +26,7 @@ export async function createGarageController(
   let page = 1;
   let cars: CarDto[] = [];
   let totalCount = 0;
-  let controllers: CarController[] = [];
+  let bundles: CarCardControllerBundle[] = [];
   let raceAbortController: AbortController | undefined;
   let carId = 0;
 
@@ -44,20 +48,38 @@ export async function createGarageController(
 
     view.total.change(totalCount);
 
-    controllers = RenderCarCards(view.carListContainer, cars);
+    bundles = RenderCarCards(view.carListContainer, cars);
 
     view.pageLabel.textContent = `Page ${page} / ${totalPages}`;
     view.prevBtn.disabled = page <= 1;
     view.nextBtn.disabled = page >= totalPages;
+
+    view.raceControls.resetBtn.disabled = true;
+    for (const b of bundles) {
+      b.controls.stopBtn.disabled = true;
+    }
   };
 
+  const validateName = (): boolean => {
+    const ok = view.nameInput.value.trim().length > 0;
+    view.setNameError(!ok);
+    return ok;
+  };
+
+  view.nameInput.addEventListener('input', () => {
+    validateName();
+  });
+
   const handleCreateButtonClick = async () => {
+    const nameOk = validateName();
     const color = view.colorInput.value;
     const name = view.nameInput.value;
-    if (!color || !name) {
-      console.error('Name and color are required to create a car');
+
+    if (!nameOk || !color) {
+      console.error(ERROR_TEXT.CAR_NAME_AND_COLOR_REQUIRED);
       return;
     }
+
     const car = await createCar({ name, color });
     if (!car) return;
 
@@ -66,6 +88,7 @@ export async function createGarageController(
     apply();
 
     view.nameInput.value = '';
+    view.setNameError(false);
     view.updateBtn.disabled = true;
   };
 
@@ -74,7 +97,7 @@ export async function createGarageController(
     const color = view.colorInput.value;
     const name = view.nameInput.value;
     if (!color || !name) {
-      console.error('Name and color are required to update a car');
+      console.error(ERROR_TEXT.CAR_NAME_AND_COLOR_REQUIRED);
       return;
     }
 
@@ -90,6 +113,7 @@ export async function createGarageController(
     view.nameInput.value = '';
 
     apply();
+    view.setNameError(false);
   };
 
   const handleMetaActions = async (event: PointerEvent) => {
@@ -131,14 +155,30 @@ export async function createGarageController(
     }
   };
 
-  const handleGenerateButtonClick = async (n = 100) => {
-    for (let index = 0; index < n; index++) {
-      const car = await createCar({ name: getCarName(), color: getColor() });
-      if (!car) continue;
-    }
+  const handleGenerateButtonClick = async (n = CARS_GENERATE_COUNT) => {
+    view.raceControls.resetBtn.disabled = true;
+    view.raceControls.raceBtn.disabled = true;
+    view.generateBtn.disabled = true;
+    view.createBtn.disabled = true;
+    view.raceControls.message.setText(RACE_TEXT.PREPARING_RACE);
+    view.raceControls.message.setVariant('loading');
 
-    await fetchPage();
-    apply();
+    try {
+      for (let index = 0; index < n; index++) {
+        const car = await createCar({ name: getCarName(), color: getColor() });
+        if (!car) continue;
+      }
+
+      await fetchPage();
+      apply();
+    } finally {
+      view.raceControls.resetBtn.disabled = true;
+      view.raceControls.raceBtn.disabled = false;
+      view.generateBtn.disabled = false;
+      view.createBtn.disabled = false;
+      view.raceControls.message.setText(RACE_TEXT.READY_STEADY_GO);
+      view.raceControls.message.setVariant('default');
+    }
   };
 
   const handlePaginationButtonClick = async (n: number) => {
@@ -150,46 +190,87 @@ export async function createGarageController(
   const handleRaceButtonClick = async () => {
     raceAbortController = new AbortController();
 
-    await view.raceControls.startCountDown();
+    view.raceControls.raceBtn.disabled = true;
+    view.raceControls.resetBtn.disabled = true;
+    view.generateBtn.disabled = true;
+    view.createBtn.disabled = true;
+    view.nextBtn.disabled = true;
+    view.prevBtn.disabled = true;
 
-    view.raceControls.message.setText('Race is on!');
-
-    const startAndDrivePromises = controllers.map((c) =>
-      c.startEngineAndDrive()
-    );
-
-    const result = await Promise.allSettled(startAndDrivePromises);
-
-    if (raceAbortController.signal.aborted) {
-      console.error('Race was cancelled');
-      return;
+    for (const b of bundles) {
+      b.controls.startBtn.disabled = true;
+      b.controls.editBtn.disabled = true;
+      b.controls.removeBtn.disabled = true;
+      b.controls.stopBtn.disabled = false;
     }
 
-    const finished = result
-      .filter((r) => r.status === 'fulfilled')
-      .map((r) => r.value)
-      .filter((v) => v !== undefined);
+    try {
+      await view.raceControls.startCountDown();
 
-    const winner = finished.toSorted((a, b) => a.time - b.time)[0];
-    const { id, time } = winner;
-    const winnerCar = await getCar(id);
-    if (!winnerCar) return;
+      view.raceControls.resetBtn.disabled = false;
+      view.raceControls.message.setText(RACE_TEXT.RACE_IS_ON);
+      view.raceControls.message.setVariant('default');
 
-    view.raceControls.message.setText(
-      `Winner: ${winnerCar.name}. Time: ${(time / 1000).toFixed(2)} s`
-    );
-    view.raceControls.message.setVariant('winner');
+      const startAndDrivePromises = bundles.map((c) =>
+        c.controller.startEngineAndDrive()
+      );
 
-    await handleWinner({ id, time: time / 1000 });
-    await updateWinners();
+      const result = await Promise.allSettled(startAndDrivePromises);
+
+      if (raceAbortController.signal.aborted) {
+        console.error(ERROR_TEXT.RACE_WAS_CANCELLED);
+        return;
+      }
+
+      const finished = result
+        .filter((r) => r.status === 'fulfilled')
+        .map((r) => r.value)
+        .filter((v) => v !== undefined);
+
+      const winner = finished.toSorted((a, b) => a.time - b.time)[0];
+      const { id, time } = winner;
+      const winnerCar = await getCar(id);
+      if (!winnerCar) return;
+
+      view.raceControls.message.setText(
+        `Winner: ${winnerCar.name}. Time: ${(time / 1000).toFixed(2)} s`
+      );
+      view.raceControls.message.setVariant('winner');
+
+      await handleWinner({ id, time: time / 1000 });
+      await updateWinners();
+    } finally {
+      view.generateBtn.disabled = false;
+      view.createBtn.disabled = false;
+
+      for (const b of bundles) {
+        b.controls.startBtn.disabled = false;
+        b.controls.editBtn.disabled = false;
+        b.controls.removeBtn.disabled = false;
+        b.controls.stopBtn.disabled = true;
+      }
+    }
   };
 
   const handleResetButtonClick = async () => {
-    view.raceControls.message.setText('Preparing race...');
-    view.raceControls.message.setVariant('loading');
-    raceAbortController?.abort();
-    const stopCarPromises = controllers.map((c) => c.stopCar(true));
-    await Promise.allSettled(stopCarPromises);
+    view.raceControls.resetBtn.disabled = true;
+    view.raceControls.raceBtn.disabled = true;
+
+    try {
+      view.raceControls.message.setText(RACE_TEXT.PREPARING_RACE);
+      view.raceControls.message.setVariant('loading');
+
+      raceAbortController?.abort();
+
+      const stopCarPromises = bundles.map((c) => c.controller.stopCar(true));
+      await Promise.allSettled(stopCarPromises);
+
+      view.raceControls.message.setText(RACE_TEXT.READY_STEADY_GO);
+      view.raceControls.message.setVariant('default');
+    } finally {
+      view.raceControls.raceBtn.disabled = false;
+      view.raceControls.resetBtn.disabled = true;
+    }
   };
 
   view.root.addEventListener('click', (event) => void handleMetaActions(event));

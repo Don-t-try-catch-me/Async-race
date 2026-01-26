@@ -26,3 +26,11 @@
     outline-offset: $focus-outline-offset;
   }
 }
+
+.text-input_state_error .text-input__label {
+  color: $color-danger;
+}
+
+.text-input__control_error {
+  border-color: $color-danger;
+}

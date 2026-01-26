@@ -15,14 +15,14 @@
     background-color 160ms ease,
     border-color 160ms ease,
     transform 80ms ease;
+
+  &.is-active {
+    background-color: $nav-btn-active-bg-color;
+    border-color: $nav-btn-active-border-color;
+  }
 }
 
 .nav__btn:hover {
   background-color: $nav-btn-hover-bg-color;
   border-color: $nav-btn-hover-border-color;
-}
-
-.nav__btn_active {
-  background-color: $nav-btn-active-bg-color;
-  border-color: $nav-btn-active-border-color;
 }

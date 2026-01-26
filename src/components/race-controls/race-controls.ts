@@ -3,7 +3,7 @@ import { CreateButton } from '@/components/ui/button/button';
 import { createElement } from '@/utils/create-element';
 import { CreateRaceTrafficLight } from '@/components/race-traffic-light/race-traffic-light';
 import { CreateInfoMessage } from '@/components/ui/info-message/info-message';
-import { RACE_CONTROLS_TITLE } from '@/constants/constants';
+import { RACE_CONTROLS_TITLE, RACE_TEXT } from '@/constants/constants';
 
 export function CreateRaceControls(): RaceControls {
   const root = createElement('div', { className: 'race-controls' });
@@ -18,8 +18,8 @@ export function CreateRaceControls(): RaceControls {
 
   const light = CreateRaceTrafficLight();
   const message = CreateInfoMessage({
-    text: 'Preparing race...',
-    variant: 'loading',
+    text: RACE_TEXT.READY_STEADY_GO,
+    variant: 'default',
   });
 
   const raceButton = CreateButton({

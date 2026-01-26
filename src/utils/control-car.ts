@@ -1,4 +1,8 @@
 import { drive, handleEngine } from '@/services/engine-service';
+type ControlsLock = (state: {
+  startDisabled?: boolean;
+  stopDisabled?: boolean;
+}) => void;
 
 export class CarController {
   private id: number;
@@ -7,16 +11,28 @@ export class CarController {
   private isAnimating = false;
   private animationId = 0;
   private abortController = new AbortController();
+  private lockControls?: ControlsLock;
 
-  constructor(id: number, car: HTMLSpanElement, road: HTMLDivElement) {
+  constructor(
+    id: number,
+    car: HTMLSpanElement,
+    road: HTMLDivElement,
+    lockControls?: ControlsLock
+  ) {
     this.id = id;
     this.car = car;
     this.road = road;
+    this.lockControls = lockControls;
   }
 
   async startEngineAndDrive() {
+    this.lockControls?.({ startDisabled: true, stopDisabled: false });
     const result = await handleEngine(this.id, 'started');
-    if (!result) return;
+
+    if (!result) {
+      this.lockControls?.({ startDisabled: false, stopDisabled: true });
+      return;
+    }
 
     const time = result.distance / result.velocity;
     this.abortController = new AbortController();
@@ -35,6 +51,8 @@ export class CarController {
       ) {
         await this.stopCar(false);
       }
+    } finally {
+      this.lockControls?.({ startDisabled: false, stopDisabled: true });
     }
   }
 

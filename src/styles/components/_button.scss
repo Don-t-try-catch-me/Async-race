@@ -69,6 +69,11 @@
   background: $btn-bg-primary;
   border-color: $btn-border-primary;
   color: $color-text;
+
+  &:hover:not(:disabled) {
+    background: $btn-bg-default-hover;
+    border-color: $btn-border-default-hover;
+  }
 }
 
 .btn-success {
