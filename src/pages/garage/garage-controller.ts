@@ -116,6 +116,12 @@ export async function createGarageController(
         view.updateBtn.disabled = false;
         view.nameInput.focus();
         carId = +id;
+
+        const car = await getCar(carId);
+        if (car) {
+          view.nameInput.value = car.name;
+          view.colorInput.value = car.color;
+        }
       }
     }
   };
