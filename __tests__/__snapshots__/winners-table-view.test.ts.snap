@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`CreateWinnersTableView matches snapshot 1`] = `
+<div
+  class="winners-table"
+>
+  <table
+    class="winners-table__table"
+  >
+    <thead>
+      <tr>
+        <th>
+          №
+        </th>
+        <th
+          class="winners-table__th"
+        >
+          <div
+            class="winners-table__wrapper winners-table__th-sortable"
+          >
+            <span
+              class="winners-table__th-text"
+            >
+              ID
+            </span>
+            <button
+              aria-label="Sort by ID"
+              class="winners-table__sort-btn"
+              type="button"
+            >
+              <span
+                aria-hidden="true"
+                class="winners-table__sort-icon"
+              />
+            </button>
+          </div>
+        </th>
+        <th>
+          Car
+        </th>
+        <th>
+          Name
+        </th>
+        <th
+          class="winners-table__th"
+        >
+          <div
+            class="winners-table__wrapper winners-table__th-sortable"
+          >
+            <span
+              class="winners-table__th-text"
+            >
+              Number of Wins
+            </span>
+            <button
+              aria-label="Sort by Number of Wins"
+              class="winners-table__sort-btn"
+              type="button"
+            >
+              <span
+                aria-hidden="true"
+                class="winners-table__sort-icon"
+              />
+            </button>
+          </div>
+        </th>
+        <th
+          class="winners-table__th"
+        >
+          <div
+            class="winners-table__wrapper winners-table__th-sortable"
+          >
+            <span
+              class="winners-table__th-text"
+            >
+              Best time
+            </span>
+            <button
+              aria-label="Sort by Best time"
+              class="winners-table__sort-btn"
+              type="button"
+            >
+              <span
+                aria-hidden="true"
+                class="winners-table__sort-icon"
+              />
+            </button>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      class="winners-table__body"
+    />
+  </table>
+</div>
+`;

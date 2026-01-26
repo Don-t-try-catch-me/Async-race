@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`CreateInfoMessage matches snapshot 1`] = `
+<div
+  aria-live="polite"
+  class="info-message info-message--winner"
+  role="status"
+>
+  <span
+    class="info-message__text"
+  >
+    Winner!
+  </span>
+</div>
+`;
