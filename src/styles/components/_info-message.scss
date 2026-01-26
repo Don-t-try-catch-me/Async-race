@@ -15,9 +15,15 @@
     letter-spacing: 0.02em;
   }
 
-  &--loading {
+  &--default {
     .info-message__text {
       color: $color-text;
+    }
+  }
+
+  &--loading {
+    .info-message__text {
+      color: $color-loading;
     }
   }
 

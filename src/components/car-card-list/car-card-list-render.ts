@@ -1,20 +1,24 @@
-import type { CarDto } from '@/types/type';
+import type { CarCardControllerBundle, CarDto } from '@/types/type';
 import { CreateCarCard } from '@/components/car-card/car-card';
-import type { CarController } from '@/utils/control-car';
 
 export function RenderCarCards(container: HTMLElement, cars: CarDto[]) {
   while (container.firstChild) {
     container.firstChild.remove();
   }
 
-  const controllers: CarController[] = [];
-
+  const bundles: CarCardControllerBundle[] = [];
   const fragment = document.createDocumentFragment();
   for (const car of cars) {
     const card = CreateCarCard(car);
+
     fragment.append(card.root);
-    controllers.push(card.carController);
+
+    bundles.push({
+      controller: card.carController,
+      controls: card.controls,
+    });
   }
+
   container.append(fragment);
-  return controllers;
+  return bundles;
 }

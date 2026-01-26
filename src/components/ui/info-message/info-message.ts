@@ -12,7 +12,7 @@ function getVariantClass(variant: InfoMessageVariant): string {
 export function CreateInfoMessage(
   properties: InfoMessageProperties
 ): InfoMessageView {
-  const variant: InfoMessageVariant = properties.variant ?? 'loading';
+  const variant: InfoMessageVariant = properties.variant ?? 'default';
 
   const root = createElement('div', {
     className: `info-message ${getVariantClass(variant)}`,
@@ -32,6 +32,7 @@ export function CreateInfoMessage(
 
   const setVariant = (next: InfoMessageVariant): void => {
     root.classList.remove(
+      'info-message--default',
       'info-message--loading',
       'info-message--winner',
       'info-message--error'

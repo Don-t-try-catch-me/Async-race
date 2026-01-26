@@ -9,6 +9,11 @@ export function CreateWinnersView(
 ): WinnersView {
   const root = createElement('section', { className: 'page page-winners' });
 
+  const title = createElement('h1', {
+    className: 'page__title',
+    textContent: 'Winners',
+  });
+
   const total = CreateTotalCounter({
     label: 'winners',
     count: properties.totalWinners,
@@ -18,7 +23,7 @@ export function CreateWinnersView(
 
   const pagination = CreatePaginationView({ page: 1, totalPages: 1 });
 
-  root.append(total.root, table.root, pagination.root);
+  root.append(title, total.root, table.root, pagination.root);
 
   return {
     root,
