@@ -109,6 +109,9 @@ export async function createGarageController(
         if (!deleted) return;
         cars = cars?.filter((car) => car.id !== +id);
         --totalCount;
+        if (cars.length === 0) {
+          await fetchPage();
+        }
         apply();
       }
 
