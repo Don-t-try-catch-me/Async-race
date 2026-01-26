@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`createErrorPageView matches snapshot 1`] = `
+<section
+  class="page page-error"
+>
+  <h1
+    class="page__title"
+  >
+    Something went wrong
+  </h1>
+  <p
+    class="page__subtitle"
+  >
+    Please return to Garage and try again.
+  </p>
+  <button
+    class="nav__btn"
+    type="button"
+  >
+    Go to Garage
+  </button>
+</section>
+`;
