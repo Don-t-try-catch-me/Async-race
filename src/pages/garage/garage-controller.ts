@@ -1,7 +1,7 @@
 import { createGarageView } from './garage-view';
 import { clampPage, getTotalPages } from '@/utils/pagination';
 import { RenderCarCards } from '@/components/car-card-list/car-card-list-render';
-import { CARS_LIST_ROWS_PER_PAGE } from '@/constants/constants';
+import { CARS_LIST_ROWS_PER_PAGE, ERROR_TEXT } from '@/constants/constants';
 
 import {
   createCar,
@@ -50,13 +50,27 @@ export async function createGarageController(
     view.nextBtn.disabled = page >= totalPages;
   };
 
+  const validateName = (): boolean => {
+    console.log('val');
+    const ok = view.nameInput.value.trim().length > 0;
+    view.setNameError(!ok);
+    return ok;
+  };
+
+  view.nameInput.addEventListener('input', () => {
+    validateName();
+  });
+
   const handleCreateButtonClick = async () => {
+    const nameOk = validateName();
     const color = view.colorInput.value;
     const name = view.nameInput.value;
-    if (!color || !name) {
-      console.error('Name and color are required to create a car');
+
+    if (!nameOk || !color) {
+      console.error(ERROR_TEXT.CAR_NAME_AND_COLOR_REQUIRED);
       return;
     }
+
     const car = await createCar({ name, color });
     if (!car) return;
 
@@ -65,6 +79,7 @@ export async function createGarageController(
     apply();
 
     view.nameInput.value = '';
+    view.setNameError(false);
   };
 
   const handleMetaActions = async (event: PointerEvent) => {
@@ -90,7 +105,7 @@ export async function createGarageController(
         const color = view.colorInput.value;
         const name = view.nameInput.value;
         if (!color || !name) {
-          console.error('Name and color are required to update a car');
+          console.error(ERROR_TEXT.CAR_NAME_AND_COLOR_REQUIRED);
           return;
         }
 

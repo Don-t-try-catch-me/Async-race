@@ -26,7 +26,7 @@ export function createGarageView(properties: GarageViewProperties): GarageView {
   const nameInput = CreateTextInput({
     id: 'garage-car-name',
     name: 'name',
-    label: 'Add your car to the race',
+    label: 'Add your car name to the race',
     placeholder: 'Enter car name',
   });
 
@@ -85,6 +85,7 @@ export function createGarageView(properties: GarageViewProperties): GarageView {
   return {
     root,
     nameInput: nameInput.input,
+    setNameError: nameInput.setError,
     colorInput: colorPicker.input,
     createBtn: createButton_.root,
     generateBtn: generateButton.root,

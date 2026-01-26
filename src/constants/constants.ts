@@ -27,4 +27,5 @@ export const ACTIVE_CLASS = 'is-active';
 
 export const ERROR_TEXT = {
   FAILED_TO_RENDER_PAGE: 'Failed to render page, please try again',
+  CAR_NAME_AND_COLOR_REQUIRED: 'Name and color are required to create a car',
 } as const;

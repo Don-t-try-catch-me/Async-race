@@ -27,6 +27,7 @@ export interface GarageView {
   root: HTMLElement;
 
   nameInput: HTMLInputElement;
+  setNameError: (hasError: boolean) => void;
   colorInput: HTMLInputElement;
   createBtn: HTMLButtonElement;
   generateBtn: HTMLButtonElement;
@@ -119,6 +120,7 @@ export interface TextInputProperties {
 export interface TextInputView {
   root: HTMLElement;
   input: HTMLInputElement;
+  setError: (hasError: boolean) => void;
 }
 export interface ColorPickerProperties {
   id: string;
