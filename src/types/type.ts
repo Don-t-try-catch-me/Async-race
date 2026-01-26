@@ -29,6 +29,7 @@ export interface GarageView {
   nameInput: HTMLInputElement;
   colorInput: HTMLInputElement;
   createBtn: HTMLButtonElement;
+  updateBtn: HTMLButtonElement;
   generateBtn: HTMLButtonElement;
 
   carListContainer: HTMLElement;
