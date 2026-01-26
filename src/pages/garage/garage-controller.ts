@@ -14,7 +14,7 @@ import { getCarName } from '@/utils/get-car-name';
 import { getColor } from '@/utils/get-color';
 import type { CarDto } from '@/types/type';
 import type { CarController } from '@/utils/control-car';
-import { handleWinner } from '@/services/winner-service';
+import { deleteWinner, handleWinner } from '@/services/winner-service';
 
 export async function createGarageController(
   updateWinners: () => Promise<void>
@@ -103,22 +103,30 @@ export async function createGarageController(
       if (!carCard || !(carCard instanceof HTMLElement)) return;
       const id = carCard.dataset.carId;
       if (!id) return;
+      carId = +id;
 
       if (target.textContent === 'REMOVE') {
-        const deleted = await deleteCar(+id);
+        const deleted = await deleteCar(carId);
         if (!deleted) return;
-        cars = cars?.filter((car) => car.id !== +id);
+        cars = cars?.filter((car) => car.id !== carId);
         --totalCount;
         if (cars.length === 0) {
           await fetchPage();
         }
         apply();
+        await deleteWinner(carId);
+        await updateWinners();
       }
 
       if (target.textContent === 'EDIT') {
         view.updateBtn.disabled = false;
         view.nameInput.focus();
-        carId = +id;
+
+        const car = await getCar(carId);
+        if (car) {
+          view.nameInput.value = car.name;
+          view.colorInput.value = car.color;
+        }
       }
     }
   };
