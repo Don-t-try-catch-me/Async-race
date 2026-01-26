@@ -24,6 +24,7 @@ export async function createGarageController(
   let totalCount = 0;
   let controllers: CarController[] = [];
   let raceAbortController: AbortController | undefined;
+  let carId = 0;
 
   const fetchPage = async (): Promise<void> => {
     const data = await getCars(page);
@@ -65,6 +66,30 @@ export async function createGarageController(
     apply();
 
     view.nameInput.value = '';
+    view.updateBtn.disabled = true;
+  };
+
+  const handleUpdateButtonClick = async (id: number) => {
+    view.updateBtn.disabled = true;
+    const color = view.colorInput.value;
+    const name = view.nameInput.value;
+    if (!color || !name) {
+      console.error('Name and color are required to update a car');
+      return;
+    }
+
+    const updatedCar = await updateCar({ id, name, color });
+    if (!updatedCar) return;
+
+    cars?.splice(
+      cars.findIndex((car) => car.id === id),
+      1,
+      updatedCar
+    );
+
+    view.nameInput.value = '';
+
+    apply();
   };
 
   const handleMetaActions = async (event: PointerEvent) => {
@@ -84,29 +109,17 @@ export async function createGarageController(
         if (!deleted) return;
         cars = cars?.filter((car) => car.id !== +id);
         --totalCount;
+        if (cars.length === 0) {
+          await fetchPage();
+        }
+        apply();
       }
 
       if (target.textContent === 'EDIT') {
-        const color = view.colorInput.value;
-        const name = view.nameInput.value;
-        if (!color || !name) {
-          console.error('Name and color are required to update a car');
-          return;
-        }
-
-        const updatedCar = await updateCar({ id: +id, name, color });
-        if (!updatedCar) return;
-
-        cars?.splice(
-          cars.findIndex((car) => car.id === +id),
-          1,
-          updatedCar
-        );
-
-        view.nameInput.value = '';
+        view.updateBtn.disabled = false;
+        view.nameInput.focus();
+        carId = +id;
       }
-
-      apply();
     }
   };
 
@@ -181,6 +194,11 @@ export async function createGarageController(
   view.createBtn.addEventListener(
     'click',
     () => void handleCreateButtonClick()
+  );
+
+  view.updateBtn.addEventListener(
+    'click',
+    () => void handleUpdateButtonClick(carId)
   );
 
   view.raceControls.raceBtn.addEventListener(
