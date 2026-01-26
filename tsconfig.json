@@ -4,7 +4,7 @@
     "useDefineForClassFields": true,
     "module": "ESNext",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "types": ["vite/client"],
+    "types": ["vite/client", "jest"],
     "skipLibCheck": true,
     "baseUrl": "./",
     "paths": {
@@ -42,8 +42,6 @@
   "include": [
     "src",
     "vite.config.ts",
-    "__tests__/__mocks__/mocks-cars.ts",
-    "__tests__/__mocks__/mocks-api.ts",
-    "__tests__/__mocks__/mocks-winners.ts"
+    "__tests__"
   ]
 }
