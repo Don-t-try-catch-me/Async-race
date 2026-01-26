@@ -12,7 +12,7 @@ import {
 
 import { Route } from '@/types/type';
 import { ERROR_TEXT } from '@/constants/constants';
-import { setActiveNav } from '../../utils/set-active-nav';
+import { setActiveNav } from '@/utils/set-active-nav';
 
 export async function CreateLayoutController() {
   const view = CreateLayoutView();
