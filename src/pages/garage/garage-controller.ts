@@ -191,7 +191,7 @@ export async function createGarageController(
     raceAbortController = new AbortController();
 
     view.raceControls.raceBtn.disabled = true;
-    view.raceControls.resetBtn.disabled = false;
+    view.raceControls.resetBtn.disabled = true;
     view.generateBtn.disabled = true;
     view.createBtn.disabled = true;
     view.nextBtn.disabled = true;
@@ -207,6 +207,7 @@ export async function createGarageController(
     try {
       await view.raceControls.startCountDown();
 
+      view.raceControls.resetBtn.disabled = false;
       view.raceControls.message.setText(RACE_TEXT.RACE_IS_ON);
       view.raceControls.message.setVariant('default');
 
@@ -239,8 +240,6 @@ export async function createGarageController(
       await handleWinner({ id, time: time / 1000 });
       await updateWinners();
     } finally {
-      view.raceControls.raceBtn.disabled = true;
-      view.raceControls.resetBtn.disabled = false;
       view.generateBtn.disabled = false;
       view.createBtn.disabled = false;
 
