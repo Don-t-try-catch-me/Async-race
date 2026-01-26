@@ -7,7 +7,13 @@ import eslintConfigPrettier from 'eslint-config-prettier/flat';
 
 export default defineConfig([
   {
-    ignores: ['dist', '__tests__', '**.config.{js,mjs,cjs,ts}', 'coverage'],
+    ignores: [
+      'dist',
+      '__tests__',
+      '**.config.{js,mjs,cjs,ts}',
+      '*.setup.cjs',
+      'coverage',
+    ],
   },
   {
     files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],

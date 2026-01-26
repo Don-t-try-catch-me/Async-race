@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom';
 import { CreateButton } from '@/components/ui/button/button';
 
 describe('CreateButton', () => {

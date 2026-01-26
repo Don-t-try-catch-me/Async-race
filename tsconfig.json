@@ -4,7 +4,7 @@
     "useDefineForClassFields": true,
     "module": "ESNext",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "types": ["vite/client", "jest"],
+    "types": ["vite/client", "jest", "@testing-library/jest-dom"],
     "skipLibCheck": true,
     "baseUrl": "./",
     "paths": {
@@ -43,5 +43,5 @@
     "src",
     "vite.config.ts",
     "__tests__"
-  ]
+, "jest.setup.cjs"  ]
 }
