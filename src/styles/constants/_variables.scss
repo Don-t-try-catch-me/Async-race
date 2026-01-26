@@ -6,6 +6,7 @@ $color-background: #141922;
 
 // Opacity scale
 $opacity-10: 0.1;
+$opacity-25: 0.25;
 $opacity-35: 0.35;
 $opacity-70: 0.7;
 
@@ -18,10 +19,10 @@ $nav-btn-border-color: rgba($color-white, $opacity-10);
 $nav-btn-bg-color: rgba($color-white, $opacity-10);
 
 $nav-btn-hover-border-color: rgba($color-white, $opacity-35);
-$nav-btn-hover-bg-color: rgba($color-white, $opacity-10);
+$nav-btn-hover-bg-color: rgba($color-white, $opacity-35);
 
 $nav-btn-active-border-color: rgba($color-white, $opacity-35);
-$nav-btn-active-bg-color: rgba($color-white, $opacity-10);
+$nav-btn-active-bg-color: rgba($color-white, $opacity-25);
 
 // Buttons base
 $btn-bg-default: rgba($color-white, 0.06);
