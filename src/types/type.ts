@@ -190,7 +190,7 @@ export interface EngineDto {
 }
 
 export interface DriveDto {
-  status: boolean;
+  success: boolean;
 }
 
 export const Route = {
