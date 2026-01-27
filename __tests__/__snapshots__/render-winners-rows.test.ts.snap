@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`RenderWinnersRows matches snapshot 1`] = `
+<tbody>
+  <tr>
+    <td>
+      1
+    </td>
+    <td>
+      10
+    </td>
+    <td
+      class="winners-table__car-cell"
+    >
+      <span
+        class="winners-table__car-icon"
+        style="background-color: rgb(255, 0, 0);"
+      />
+    </td>
+    <td>
+      Flash
+    </td>
+    <td>
+      3
+    </td>
+    <td>
+      7.12 s
+    </td>
+  </tr>
+  <tr>
+    <td>
+      2
+    </td>
+    <td>
+      11
+    </td>
+    <td
+      class="winners-table__car-cell"
+    >
+      <span
+        class="winners-table__car-icon"
+        style="background-color: rgb(0, 255, 0);"
+      />
+    </td>
+    <td>
+      Bolt
+    </td>
+    <td>
+      1
+    </td>
+    <td>
+      10.00 s
+    </td>
+  </tr>
+</tbody>
+`;

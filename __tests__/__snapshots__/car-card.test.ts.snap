@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`CreateCarCard matches snapshot 1`] = `
+<li
+  class="car-card"
+  data-car-id="7"
+>
+  <div
+    class="car-card__header"
+  >
+    <h3
+      class="car-card__name"
+    >
+      Rocket
+    </h3>
+    <div
+      class="car-card__meta-actions"
+    >
+      <button
+        aria-label="Edit car Rocket"
+        class="btn btn-ghost btn-sm"
+        data-action="car-edit"
+        data-id="7"
+        type="button"
+      >
+        EDIT
+      </button>
+      <button
+        aria-label="Remove car Rocket"
+        class="btn btn-danger btn-sm"
+        data-action="car-remove"
+        data-id="7"
+        type="button"
+      >
+        REMOVE
+      </button>
+    </div>
+  </div>
+  <div
+    class="car-card__track"
+  >
+    <div
+      class="car-card__road"
+    />
+    <span
+      class="car-card__car-icon"
+      style="background-color: rgb(18, 52, 86);"
+    />
+    <span
+      class="car-card__flag"
+    />
+  </div>
+  <div
+    class="car-card__controls"
+  >
+    <button
+      aria-label="Start car Rocket"
+      class="btn btn-success btn-sm"
+      data-action="car-start"
+      data-id="7"
+      type="button"
+    >
+      START
+    </button>
+    <button
+      aria-label="Stop car Rocket"
+      class="btn btn-danger btn-sm"
+      data-action="car-stop"
+      data-id="7"
+      type="button"
+    >
+      STOP
+    </button>
+  </div>
+</li>
+`;

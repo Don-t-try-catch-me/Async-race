@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`CreateHeaderView matches snapshot 1`] = `
+<header
+  class="header"
+>
+  <div
+    class="container header__inner"
+  >
+    <h1
+      class="header__title"
+    >
+      Async Race
+    </h1>
+    <nav
+      class="nav"
+    >
+      <button
+        class="nav__btn"
+        type="button"
+      >
+        Garage
+      </button>
+      <button
+        class="nav__btn"
+        type="button"
+      >
+        Winners
+      </button>
+    </nav>
+  </div>
+</header>
+`;
