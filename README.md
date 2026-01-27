@@ -1,6 +1,6 @@
 # Async Race
 
-A modern frontend project built with Vite, TypeScript, and React.
+A modern frontend project built with Vite, TypeScript.
 
 ## Table of Contents
 
