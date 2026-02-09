@@ -70,15 +70,15 @@ describe('CreateTextInput', () => {
       label: 'Car name',
     });
 
-    expect(view.root).not.toHaveClass('text-input_state_error');
+    expect(view.root).not.toHaveClass('text-input__state_error');
     expect(view.input).not.toHaveClass('text-input__control_error');
 
     view.setError(true);
-    expect(view.root).toHaveClass('text-input_state_error');
+    expect(view.root).toHaveClass('text-input__state_error');
     expect(view.input).toHaveClass('text-input__control_error');
 
     view.setError(false);
-    expect(view.root).not.toHaveClass('text-input_state_error');
+    expect(view.root).not.toHaveClass('text-input__state_error');
     expect(view.input).not.toHaveClass('text-input__control_error');
   });
 });
