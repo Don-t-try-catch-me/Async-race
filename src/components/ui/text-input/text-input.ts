@@ -28,7 +28,7 @@ export function CreateTextInput(
   }
 
   const setError = (hasError: boolean): void => {
-    root.classList.toggle('text-input_state_error', hasError);
+    root.classList.toggle('text-input__state_error', hasError);
     input.classList.toggle('text-input__control_error', hasError);
   };
 
