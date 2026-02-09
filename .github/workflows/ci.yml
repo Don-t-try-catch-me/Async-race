@@ -31,10 +31,10 @@ jobs:
             exit 0
           fi
           
-          if [[ ! "$BRANCH_NAME" =~ ^(feature|fix)/ ]]; then
-            echo "❌ Error: Branch name must start with 'feature/' or 'fix/'"
+          if [[ ! "$BRANCH_NAME" =~ ^(feature|fix|chore|refactor)/ ]]; then
+            echo "❌ Error: Branch name must start with 'feature/', 'fix/', 'chore/' or 'refactor/'"
             echo "Current branch: $BRANCH_NAME"
-            echo "Examples: feature/add-login, fix/header-bug"
+            echo "Examples: feature/add-login, fix/header-bug, chore/blah-blah, refactor/smth"
             exit 1
           fi
           

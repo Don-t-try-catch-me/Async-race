@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`createGarageView DOM structure should match snapshot 1`] = `
+<section
+  class="page"
+>
+  <h1
+    class="page__title"
+  >
+    Garage
+  </h1>
+  <div
+    class="page__controls"
+  >
+    <div
+      class="page__control-left"
+    >
+      <div />
+      <div />
+      <button />
+      <button />
+    </div>
+    <div
+      class="page__control-right"
+    >
+      <button />
+    </div>
+  </div>
+  <div />
+  <div />
+  <div />
+  <div />
+</section>
+`;

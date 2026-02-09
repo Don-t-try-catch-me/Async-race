@@ -1,0 +1,104 @@
+// Colors
+$color-white: #ffffff;
+
+$color-text: #d7dde6;
+$color-background: #141922;
+
+// Opacity scale
+$opacity-10: 0.1;
+$opacity-25: 0.25;
+$opacity-35: 0.35;
+$opacity-70: 0.7;
+
+// Layout
+$border-color: rgba($color-white, $opacity-10);
+$bg-color: rgba($color-background, $opacity-70);
+
+// buttons
+$nav-btn-border-color: rgba($color-white, $opacity-10);
+$nav-btn-bg-color: rgba($color-white, $opacity-10);
+
+$nav-btn-hover-border-color: rgba($color-white, $opacity-35);
+$nav-btn-hover-bg-color: rgba($color-white, $opacity-35);
+
+$nav-btn-active-border-color: rgba($color-white, $opacity-35);
+$nav-btn-active-bg-color: rgba($color-white, $opacity-25);
+
+// Buttons base
+$btn-bg-default: rgba($color-white, 0.06);
+$btn-border-default: rgba($color-white, 0.14);
+$btn-bg-default-hover: rgba($color-white, 0.25);
+$btn-border-default-hover: rgba($color-white, 0.25);
+
+$btn-bg-primary: rgba($color-white, 0.12);
+$btn-border-primary: rgba($color-white, 0.22);
+
+$btn-border-ghost: rgba($color-white, 0.12);
+$btn-bg-ghost-hover: rgba($color-white, 0.06);
+
+// Buttons
+$color-success: rgb(0, 200, 120);
+$color-danger: rgb(255, 70, 70);
+$color-loading: rgba(255, 210, 80);
+
+$btn-bg-success: rgba($color-success, 0.16);
+$btn-border-success: rgba($color-success, 0.35);
+$btn-bg-success-hover: rgba($color-success, 0.22);
+
+$btn-bg-danger: rgba($color-danger, 0.16);
+$btn-border-danger: rgba($color-danger, 0.35);
+$btn-bg-danger-hover: rgba($color-danger, 0.22);
+
+// race light
+$race-light-red: rgba(255, 70, 70, 0.8);
+$race-light-yellow: rgba(255, 210, 80, 0.85);
+$race-light-green: rgba(0, 200, 120, 0.85);
+
+// Background gradient
+$bg-radial-1-size: 850px;
+$bg-radial-1-x: 18%;
+$bg-radial-1-y: 12%;
+$bg-radial-1-color: rgba($color-white, $opacity-10);
+$bg-radial-1-stop: 55%;
+
+$bg-radial-2-size: 650px;
+$bg-radial-2-x: 85%;
+$bg-radial-2-y: 25%;
+$bg-radial-2-color: rgba($color-white, $opacity-10);
+$bg-radial-2-stop: 60%;
+
+$bg-linear-angle: 120deg;
+$bg-linear-start: #141922;
+$bg-linear-mid: #2a3444;
+$bg-linear-mid-stop: 52%;
+$bg-linear-end: #141922;
+
+// Text (on dark background)
+$color-text-70: rgba(215, 221, 230, 0.7);
+$color-text-35: rgba(215, 221, 230, $opacity-35);
+$color-text-100: rgba(215, 221, 230, 1);
+
+// Focus outline
+$focus-outline-color: rgba(120, 160, 255, 0.55);
+$focus-outline-width: 2px;
+$focus-outline-offset: 2px;
+
+// Typography
+$font-size-s: 0.8rem;
+$font-size-base: 1rem;
+$font-size-h1: 1.75rem;
+$font-size-header-title: 1.25rem;
+
+// Font weights
+$font-weight-regular: 400;
+$font-weight-bold: 700;
+
+// Letter spacing (rem)
+$letter-spacing-tight: 0.01rem;
+$letter-spacing-header-title: 0.02rem;
+
+// Font families
+$font-family-base: 'Roboto', sans-serif;
+
+// Line heights
+$line-height-base: 1.5;

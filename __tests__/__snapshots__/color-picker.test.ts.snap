@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`CreateColorPicker matches snapshot 1`] = `
+<div
+  class="color-picker"
+>
+  <label
+    class="color-picker__label"
+    for="car-color"
+  >
+    Color
+  </label>
+  <div
+    class="color-picker__control"
+  >
+    <input
+      class="color-picker__input"
+      id="car-color"
+      name="color"
+      type="color"
+    />
+  </div>
+</div>
+`;

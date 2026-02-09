@@ -1,0 +1,36 @@
+@use '../constants/variables' as *;
+
+.text-input {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  &__label {
+    color: $color-text-70;
+    font-size: $font-size-s;
+  }
+
+  &__control {
+    padding: 10px 12px;
+    border-radius: 12px;
+
+    border: 1px solid $nav-btn-border-color;
+    background: $nav-btn-bg-color;
+
+    color: $color-text;
+    font: inherit;
+  }
+
+  &__control:focus-visible {
+    outline: $focus-outline-width solid $focus-outline-color;
+    outline-offset: $focus-outline-offset;
+  }
+}
+
+.text-input__state_error .text-input__label {
+  color: $color-danger;
+}
+
+.text-input__control_error {
+  border-color: $color-danger;
+}

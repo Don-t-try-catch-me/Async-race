@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`CreateFooterView matches snapshot 1`] = `
+<footer
+  class="footer"
+>
+  <div
+    class="container footer__inner"
+  >
+    <div
+      class="footer__links"
+    >
+      <a
+        class="footer__link"
+        href="https://rs.school/"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        RS School
+      </a>
+      <a
+        class="footer__link"
+        href="https://github.com/"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        GitHub
+      </a>
+    </div>
+    <div
+      class="footer__year"
+    >
+      2026
+    </div>
+  </div>
+</footer>
+`;

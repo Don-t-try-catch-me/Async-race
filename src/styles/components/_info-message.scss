@@ -1,0 +1,41 @@
+@use '../constants/variables' as *;
+
+.info-message {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid $border-color;
+  background: rgba($color-white, 0.05);
+
+  &__text {
+    font-size: $font-size-s;
+    font-weight: $font-weight-bold;
+    letter-spacing: 0.02em;
+  }
+
+  &--default {
+    .info-message__text {
+      color: $color-text;
+    }
+  }
+
+  &--loading {
+    .info-message__text {
+      color: $color-loading;
+    }
+  }
+
+  &--winner {
+    .info-message__text {
+      color: $color-success;
+    }
+  }
+
+  &--error {
+    .info-message__text {
+      color: $color-danger;
+    }
+  }
+}

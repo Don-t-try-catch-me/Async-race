@@ -1,0 +1,38 @@
+@use '../constants/variables' as *;
+
+.page {
+  padding: 0;
+
+  &__title {
+    margin: 0 0 12px;
+    font-size: $font-size-h1;
+    font-weight: $font-weight-bold;
+    letter-spacing: $letter-spacing-tight;
+  }
+
+  &__subtitle {
+    margin: 0 0 12px;
+    font-size: $font-size-h1;
+    font-weight: $font-weight-bold;
+    letter-spacing: $letter-spacing-tight;
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+  }
+
+  &__control-left {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+  }
+
+  &__control-right {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+  }
+}

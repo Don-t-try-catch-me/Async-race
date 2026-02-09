@@ -1,0 +1,107 @@
+@use '../constants/variables' as *;
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  border-radius: 10px;
+  border: 1px solid transparent;
+
+  font-weight: $font-weight-bold;
+  letter-spacing: 0.02em;
+
+  cursor: pointer;
+  user-select: none;
+
+  transition:
+    transform 0.08s ease,
+    opacity 0.12s ease,
+    border-color 0.12s ease;
+
+  &:active {
+    transform: translateY(1px);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  &:focus-visible {
+    outline: $focus-outline-width solid $focus-outline-color;
+    outline-offset: $focus-outline-offset;
+  }
+}
+
+.btn-sm {
+  height: 32px;
+  padding: 0 12px;
+  font-size: $font-size-s;
+}
+
+.btn-md {
+  height: 36px;
+  padding: 0 14px;
+  font-size: $font-size-s;
+}
+
+.btn-l {
+  height: 46px;
+  padding: 0 14px;
+  font-size: $font-size-s;
+}
+
+.btn-default {
+  background: $btn-bg-default;
+  border-color: $btn-border-default;
+  color: $color-text;
+
+  &:hover:not(:disabled) {
+    background: $btn-bg-default-hover;
+    border-color: $btn-border-default-hover;
+  }
+}
+
+.btn-primary {
+  background: $btn-bg-primary;
+  border-color: $btn-border-primary;
+  color: $color-text;
+
+  &:hover:not(:disabled) {
+    background: $btn-bg-default-hover;
+    border-color: $btn-border-default-hover;
+  }
+}
+
+.btn-success {
+  background: $btn-bg-success;
+  border-color: $btn-border-success;
+  color: $color-text;
+
+  &:hover:not(:disabled) {
+    background: $btn-bg-success-hover;
+  }
+}
+
+.btn-danger {
+  background: $btn-bg-danger;
+  border-color: $btn-border-danger;
+  color: $color-text;
+
+  &:hover:not(:disabled) {
+    background: $btn-bg-danger-hover;
+  }
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: $btn-border-ghost;
+  color: $color-text;
+
+  &:hover:not(:disabled) {
+    background: $btn-bg-ghost-hover;
+  }
+}
